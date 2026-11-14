@@ -1101,7 +1101,7 @@
                     <div class="terminal">
                         <p>&gt; ENCRYPTED SIGNAL BYPASS</p>
                         <label>&gt; CODE: </label>
-                        <input type="text" id="termInput" class="term-field" readonly onclick="openKeypad('ch2')" placeholder="TAP TO TYPE...">
+                        <input type="text" id="termInput" class="term-field" readonly onclick="openKeypad('ch2')" ontouchstart="openKeypad('ch2')" placeholder="TAP TO TYPE...">
                         <button class="action-btn" onclick="verifyTerminal()" style="margin-left:6px;">VERIFY ↵</button>
 
                         <!-- ZERO-KEYBOARD TACTICAL ON-SCREEN KEYPAD FOR CH 02 -->
@@ -1652,14 +1652,13 @@
 
         // Pre-computed djb2 hashes (No plaintext answers in source code)
         const SECURE_HASHES = {
-            MASTER: 2850819645,
-            CH2: [2090959300, 193440998, 2249386614],
-            CH3: [2090838388, 193446995, 2087872244],
-            CH6: [3294435461, 3190020165, 922596762],
-            CH7: [2791345746, 193511535],
-            CH8: [993572348, 193504850]
-        };
-
+    MASTER: 2850819645,
+    CH2: [2090971781, 193433249, 2088330028],   // zero, 255, 255k
+    CH3: [2090838615, 193440644, 2088574005],   // void, 9.8, 9.81
+    CH6: [2498898920, 466175796, 922596762],    // silence, silent, (extra)
+    CH7: [3466730651, 193507644],               // tachyon, v>c
+    CH8: [1419738254, 5863786]                  // horizon, rs
+};
         // ==================== 1. HISTORY GUARD & BACK-BUTTON PROTECTION ====================
         function pushBackShieldState() {
             try {
