@@ -916,6 +916,10 @@
                 <span class="tap-chip" onclick="loadGlyphBuffer('⍤ ⍙ ⍝ ⍟ ⍪ ⎋ ⍣')">CH 07: ⍤ ⍙ ⍝ ⍟ ⍪ ⎋ ⍣</span>
                 <span class="tap-chip" onclick="loadGlyphBuffer('⍟ ⎋ ⎌ ⎊ ⍫ ⎋ ⍣')">CH 08: ⍟ ⎋ ⎌ ⎊ ⍫ ⎋ ⍣</span>
             </div>
+<div style="display:flex; justify-content:center; gap:10px; margin-bottom:12px;">
+    <button id="engMode" onclick="setGlyphMode('encode')" style="background:#061d28; border:1px solid #00e5ff; color:#00e5ff; padding:6px 12px; border-radius:5px; font-family:'Orbitron', sans-serif; font-size:10px; letter-spacing:1px; cursor:pointer; transition:0.2s;">ENCODE (ENG ➞ GLYPH)</button>
+    <button id="glyphMode" onclick="setGlyphMode('decode')" style="background:#061d28; border:1px solid #286174; color:#6b8e9b; padding:6px 12px; border-radius:5px; font-family:'Orbitron', sans-serif; font-size:10px; letter-spacing:1px; cursor:pointer; transition:0.2s;">DECODE (GLYPH ➞ ENG)</button>
+</div>
 
             <label style="font-size:9px;letter-spacing:2px;color:#8ab9c7">INPUT BUFFER (TAP GLYPH CELLS BELOW OR CHIPS ABOVE)</label>
             <input type="text" id="modalUserInput" readonly placeholder="Tap glyph cells below or signal chips above..." style="margin-top:4px; cursor:pointer; font-family:'Orbitron',monospace;">
@@ -2110,6 +2114,41 @@
                 return Array.from(val).map(c => engToGlyphs[c.toLowerCase()] || c).join("");
             }
         }
+// --- NEW GLYPH TOGGLE ENGINE ---
+let currentGlyphMode = "encode";
+
+function setGlyphMode(mode) {
+    currentGlyphMode = mode;
+    const input = document.getElementById("modalUserInput");
+    
+    if (input) {
+        input.placeholder = mode === "encode" ? "TAP TO TYPE ENGLISH..." : "TAP OR PASTE GLYPH...";
+    }
+
+    const engBtn = document.getElementById("engMode");
+    const glyphBtn = document.getElementById("glyphMode");
+    
+    if (engBtn && glyphBtn) {
+        engBtn.style.color = mode === "encode" ? "#00e5ff" : "#6b8e9b";
+        engBtn.style.borderColor = mode === "encode" ? "#00e5ff" : "#286174";
+        glyphBtn.style.color = mode === "decode" ? "#00e5ff" : "#6b8e9b";
+        glyphBtn.style.borderColor = mode === "decode" ? "#00e5ff" : "#286174";
+    }
+
+    if (typeof playKeyClick === "function") playKeyClick();
+    updateModalGlyphOutput(); 
+}
+
+function translateGlyphText(val) {
+    if (!val) return "⍙⎈⍝ ⟡ ⎍⎈⍟"; 
+    
+    return Array.from(val).map(c => {
+        if (currentGlyphMode === "encode") {
+            return engToGlyphs[c.toLowerCase()] || c;
+        }
+        return glyphsToEng[c] !== undefined ? glyphsToEng[c] : c;
+    }).join("");
+}
 
         function clearGlyph() {
             playKeyClick();
