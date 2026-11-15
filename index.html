@@ -2138,7 +2138,6 @@ function setGlyphMode(mode) {
     if (typeof playKeyClick === "function") playKeyClick();
     updateModalGlyphOutput(); 
 }
-
 function translateGlyphText(val) {
     if (!val) return "⍙⎈⍝ ⟡ ⎍⎈⍟"; 
     
@@ -2146,9 +2145,12 @@ function translateGlyphText(val) {
         if (currentGlyphMode === "encode") {
             return engToGlyphs[c.toLowerCase()] || c;
         }
+        // DECODE MODE: স্পেস রিমুভ করার ফিক্স
+        if (c === " ") return ""; 
         return glyphsToEng[c] !== undefined ? glyphsToEng[c] : c;
     }).join("");
 }
+
 
         function clearGlyph() {
             playKeyClick();
