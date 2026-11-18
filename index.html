@@ -3504,6 +3504,414 @@ function translateGlyphText(val) {
         requestAnimationFrame(loop);
     }
 </script>
+<!-- ==================== EXPANSION PACK: CHAPTER 11 (ACT II: THE PARALLEL COLLAPSE) ==================== -->
+<style>
+    .ch11-override-box {
+        background: #060002;
+        border: 1px solid #ff2a55;
+        border-radius: 10px;
+        padding: 16px;
+        text-align: center;
+        margin: 16px 0;
+        box-shadow: inset 0 0 25px rgba(255, 42, 85, 0.15);
+    }
+    .ch11-shake {
+        animation: ch11GlitchShake 0.18s infinite;
+    }
+    @keyframes ch11GlitchShake {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(-3px, 2px); }
+        50% { transform: translate(3px, -2px); }
+        75% { transform: translate(-2px, -1px); }
+        100% { transform: translate(0, 0); }
+    }
+    .ch11-slider-arena {
+        position: relative;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        margin: 18px 0;
+        background: #120206;
+        border-radius: 6px;
+        border: 1px solid #4a0e1e;
+        padding: 0 8px;
+    }
+    .ch11-safe-zone {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 38%;
+        width: 24%;
+        background: rgba(0, 245, 212, 0.18);
+        border-left: 2px dashed var(--amber);
+        border-right: 2px dashed var(--amber);
+        pointer-events: none;
+    }
+    .ch11-safe-label {
+        position: absolute;
+        top: -16px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Orbitron', monospace;
+        font-size: 9px;
+        color: var(--amber);
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+    #ch11NeuralSlider {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+        position: relative;
+        z-index: 3;
+        margin: 0;
+    }
+    #ch11NeuralSlider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(90deg, #ff2a55 0%, #3a0814 38%, #043830 50%, #3a0814 62%, #ff2a55 100%);
+        border-radius: 4px;
+    }
+    #ch11NeuralSlider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 28px;
+        width: 14px;
+        border-radius: 3px;
+        background: #fff;
+        border: 2px solid #00f5d4;
+        box-shadow: 0 0 12px #00f5d4;
+        margin-top: -10px;
+        cursor: pointer;
+    }
+    .ch11-sync-bg {
+        width: 100%;
+        height: 6px;
+        background: #24060e;
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 12px;
+    }
+    .ch11-sync-fill {
+        height: 100%;
+        width: 0%;
+        background: #ff2a55;
+        transition: width 0.12s linear, background 0.2s;
+    }
+    .ch11-mem-tabs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin: 14px 0;
+    }
+    .ch11-tab-btn {
+        background: #140308;
+        border: 1px solid #5c1628;
+        color: #ffb3c4;
+        padding: 10px 6px;
+        font-family: 'Orbitron', monospace;
+        font-size: 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: center;
+        transition: 0.2s;
+    }
+    .ch11-tab-btn.active-mem {
+        background: rgba(0, 245, 212, 0.15);
+        border-color: var(--amber);
+        color: #fff;
+        box-shadow: 0 0 12px rgba(0, 245, 212, 0.25);
+    }
+    .ch11-log-box {
+        background: #080104;
+        border: 1px solid var(--amber);
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #ffd6e0;
+        min-height: 120px;
+    }
+</style>
+
+<div id="ch11TemplateHolder" style="display:none;">
+    <div id="chapter11" class="chapter-view">
+        <section class="section">
+            <div class="heading">
+                <span>ACT II: সমান্তরাল পতন // 01</span>
+                <span class="red">LOG: 011 // MIRROR PARADOX</span>
+            </div>
+            <div class="story-text">
+                <p>ওমেগা সিঙ্গুলারিটি স্থিতিশীল হওয়ার পর রক্তিম মহাবিশ্বের নিস্তব্ধতা হঠাৎ হাজারটা ভাঙা কাঁচের শব্দে খানখান হয়ে গেল। অরি এবং থিয়ার সামনে শূন্য বাতাসের ভেতর থেকে ভেসে উঠল এক দীর্ঘ ছায়ামূর্তি। তার মুখের প্রতিটি রেখা হুবহু অরির মতো—কিন্তু চোখ দুটো পোড়া কয়লার মতো অন্ধকার।</p>
+            </div>
+            <div class="dialogue-box thea-speak">
+                <span class="speaker-tag" style="color:var(--amber)">THEA // BIO-SCAN ALERT</span>
+                "অরি, সাবধান! এই সিগন্যালটা বাইরের কারো নয়... এ তো তোমারই বায়ো-ফ্রিকোয়েন্সি! কিন্তু এর টাইমলাইন পুরোপুরি মৃত ও বিকৃত!"
+            </div>
+            <div class="dialogue-box" style="border-left-color:#ff2a55; background:rgba(255,42,85,0.07);">
+                <span class="speaker-tag" style="color:#ff2a55;">OBJECT ZERO // ALTERNATE ORI</span>
+                "চিনতে পারছ না নিজেকে? আমি হলাম সেই অরি—যে সমীকরণ মেলাতে এক সেকেন্ড দেরি করে ফেলেছিল! আমার দুনিয়ার থিয়াকে আমি চোখের সামনে শূন্যতায় মিলিয়ে যেতে দেখেছি। আর তুমি আমারই ধ্বংসস্তূপের ওপর দাঁড়িয়ে থিয়াকে বাঁচানোর উৎসব করছ? তোমার ওই চেতনা আর থিয়া—দুটোই আজ আমি কেড়ে নেব!"
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="heading">
+                <span>02 / NEURAL CORTEX OVERRIDE</span>
+                <span class="amber" id="ch11StatusBadge">SYNC: 0%</span>
+            </div>
+            <div class="story-text">
+                <p><strong>স্নায়বিক ট্যাগ-অফ-ওয়ার (Tug-of-War):</strong> অবজেক্ট জিরো তোমার সিস্টেমের নিয়ন্ত্রণ দুপাশে টেনে নিচ্ছে! নিচের স্লাইডারটি আঙুল দিয়ে টেনে মাঝখানের <strong>সবুজ জোনে (ANCHOR ZONE)</strong> ধরে রেখে হ্যাক প্রতিহত করো।</p>
+            </div>
+
+            <div class="ch11-override-box" id="ch11OverrideArena">
+                <div style="font-family:'Orbitron',monospace; font-size:11px; color:#ff2a55; letter-spacing:1.5px; margin-bottom:10px;">
+                    ⚠️ DIRECT CORTEX HIJACK IN PROGRESS ⚠️
+                </div>
+
+                <div class="ch11-slider-arena">
+                    <div class="ch11-safe-zone">
+                        <span class="ch11-safe-label">ANCHOR ZONE</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="15" id="ch11NeuralSlider">
+                </div>
+
+                <div class="ch11-sync-bg">
+                    <div class="ch11-sync-fill" id="ch11SyncFill"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-family:'Orbitron',monospace; font-size:10px; margin-top:8px; color:#ffb3c4;">
+                    <span id="ch11PullTxt">⚡ FORCE PULL: ACTIVE</span>
+                    <span id="ch11PctTxt">NEURAL SYNC: 0%</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="hiddenSec11" style="display:none; border-color:var(--amber);">
+            <div class="heading">
+                <span>03 / OBJECT ZERO: MEMORY HUB</span>
+                <span class="amber">CORTEX DECRYPTED</span>
+            </div>
+            <div class="dialogue-box" style="border-left-color:var(--amber); background:rgba(0,245,212,0.05);">
+                <span class="speaker-tag" style="color:var(--amber)">ORI // COUNTER-HACK COMPLETE</span>
+                "তুমি আমার ভয় হতে পারো, কিন্তু আমার ভবিষ্যৎ নও! আমি তোমার স্নায়ু-লিংক উল্টে দিয়ে তোমারই মেমরি কোর ডিক্রিপ্ট করেছি!"
+            </div>
+
+            <p style="font-size:13.5px; color:#ffd6e0; margin:10px 0;">
+                নিচের ৩টি ডিক্রিপ্টেড মেমরি ফ্র্যাগমেন্টে ট্যাপ করে অবজেক্ট জিরোর অতীত ও আসল দুর্বলতা জানো:
+            </p>
+
+            <div class="ch11-mem-tabs">
+                <button type="button" class="ch11-tab-btn active-mem" onclick="openCh11Memory(1, this)">📂 LOG #01<br><span style="font-size:8.5px">THE FAILURE</span></button>
+                <button type="button" class="ch11-tab-btn" onclick="openCh11Memory(2, this)">📂 LOG #02<br><span style="font-size:8.5px">THE OBSESSION</span></button>
+                <button type="button" class="ch11-tab-btn" onclick="openCh11Memory(3, this)">📂 LOG #03<br><span style="font-size:8.5px">WEAK POINT</span></button>
+            </div>
+
+            <div class="ch11-log-box" id="ch11LogViewer">
+                <strong style="color:#ffbe0b; font-family:'Orbitron',monospace; font-size:11px;">[ MEMORY FRAGMENT #01 // TIMELINE-ZERO ]</strong><br><br>
+                "দিনটা ছিল ২২ নভেম্বর। ইভেন্ট হরাইজনের শেষ সমীকরণে আমি ভুল ধ্রুবক বসিয়েছিলাম। চোখের পলকে মহাকর্ষ উল্টে গেল। থিয়া হাত বাড়িয়েছিল আমার দিকে, কিন্তু অ্যান্টি-ম্যাটারের স্রোত ওকে ছিন্নভিন্ন করে দিল। আমি একা বেঁচে রইলাম এক মৃত রক্তিম মহাবিশ্বে।"
+            </div>
+
+            <div id="ch11FinalBridge" style="display:none; margin-top:16px; padding-top:12px; border-top:1px dashed #5c1628;">
+                <div class="dialogue-box thea-speak">
+                    <span class="speaker-tag" style="color:var(--amber)">THEA // TARGET IDENTIFIED</span>
+                    "অরি! তৃতীয় লগটা দেখো—ওর কোয়ান্টাম কোর টিকে আছে কেবল '404.8 Hz Chrono-Anchor' সিগন্যালের ওপর। পরের অধ্যায়ে ওই ঘড়ির সিগন্যালটা ধ্বংস করলেই ওকে চিরতরে থামাতে পারব!"
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    // ==================== CHAPTER 11 INTEGRATION ENGINE ====================
+    chapterTitles[11] = "CH 11: দ্য মিরর প্যারাডক্স";
+
+    let ch11Stability = 0;
+    let ch11SoundTick = 0;
+
+    const ch11LogsData = {
+        1: `<strong style="color:#ffbe0b; font-family:'Orbitron',monospace; font-size:11px;">[ MEMORY FRAGMENT #01 // TIMELINE-ZERO ]</strong><br><br>"দিনটা ছিল ২২ নভেম্বর। ইভেন্ট হরাইজনের শেষ সমীকরণে আমি ভুল ধ্রুবক বসিয়েছিলাম। চোখের পলকে মহাকর্ষ উল্টে গেল। থিয়া হাত বাড়িয়েছিল আমার দিকে, কিন্তু অ্যান্টি-ম্যাটারের স্রোত ওকে ছিন্নভিন্ন করে দিল। আমি একা বেঁচে রইলাম এক মৃত রক্তিম মহাবিশ্বে।"`,
+        2: `<strong style="color:#00f5d4; font-family:'Orbitron',monospace; font-size:11px;">[ MEMORY FRAGMENT #02 // THE OBSESSION ]</strong><br><br>"আমি শত শত সমান্তরাল মহাবিশ্ব স্ক্যান করেছি। কোথাও থিয়া বেঁচে নেই—কেবল তোমার এই টাইমলাইনটি ছাড়া! তাই আমি নিজের সত্তাকে কোয়ান্টাম ভাইরাসে রূপান্তর করেছি। তোমাকে মুছে ফেলতে পারলেই তোমার জায়গায় আমি থিয়ার সাথে বাঁচতে পারব।"`,
+        3: `<strong style="color:#ff2a55; font-family:'Orbitron',monospace; font-size:11px;">[ MEMORY FRAGMENT #03 // CORE VULNERABILITY ]</strong><br><br>"সতর্কবার্তা: অবজেক্ট জিরোর কোনো ভৌত শরীর নেই। সে টিকে আছে 'ক্রোনো-অ্যাঙ্কর (Chrono-Anchor) ফ্রিকোয়েন্সি 404.8 Hz'-এর ওপর। যদি কেউ তার টাইমলাইন ঘড়ির কাঁটা উল্টো দিকে ঘুরিয়ে দেয়, তবে তার অস্তিত্ব চিরতরে শূন্যে মিলিয়ে যাবে।"`
+    };
+
+    function playCh11FeedbackSound(inSafeZone) {
+        try {
+            if (typeof audioEnabled !== 'undefined' && !audioEnabled) return;
+            if (typeof initAudio === 'function') initAudio();
+            if (typeof audioCtx === 'undefined' || !audioCtx) return;
+
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            if (inSafeZone) {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(320 + (ch11Stability * 2.4), now);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+            } else {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(115, now);
+                osc.frequency.linearRampToValueAtTime(68, now + 0.09);
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+            }
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.11);
+        } catch (e) {}
+    }
+
+    function evaluateCh11Stability() {
+        if (gameState.ch11Solved) return;
+        const slider = document.getElementById('ch11NeuralSlider');
+        const fill = document.getElementById('ch11SyncFill');
+        const pctTxt = document.getElementById('ch11PctTxt');
+        const badge = document.getElementById('ch11StatusBadge');
+        const arena = document.getElementById('ch11OverrideArena');
+        if (!slider) return;
+
+        const val = parseFloat(slider.value);
+        const inZone = (val >= 38 && val <= 62);
+        ch11SoundTick++;
+
+        if (inZone) {
+            ch11Stability = Math.min(100, ch11Stability + 2.4);
+            arena.classList.remove('ch11-shake');
+            if (ch11SoundTick % 2 === 0) playCh11FeedbackSound(true);
+        } else {
+            ch11Stability = Math.max(0, ch11Stability - 1.5);
+            if (ch11Stability < 35) arena.classList.add('ch11-shake');
+            if (ch11SoundTick % 3 === 0) playCh11FeedbackSound(false);
+        }
+
+        const pct = Math.floor(ch11Stability);
+        fill.style.width = pct + "%";
+        pctTxt.textContent = `NEURAL SYNC: ${pct}%`;
+        badge.textContent = `SYNC: ${pct}%`;
+
+        if (pct < 40) {
+            fill.style.background = "#ff2a55";
+        } else if (pct < 85) {
+            fill.style.background = "#ffbe0b";
+        } else {
+            fill.style.background = "#00f5d4";
+        }
+
+        if (ch11Stability >= 100) {
+            gameState.ch11Solved = true;
+            if (typeof saveState === 'function') saveState();
+            applyCh11SolvedState();
+            if (typeof triggerHapticPattern === 'function') triggerHapticPattern([150, 70, 280]);
+            if (typeof playBeep === 'function') playBeep(true);
+            if (typeof showToast === 'function') showToast("🔓 অবজেক্ট জিরোর মেমরি হাব ডিক্রিপ্ট সম্পন্ন!");
+            document.getElementById('hiddenSec11').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    function applyCh11SolvedState() {
+        ch11Stability = 100;
+        const slider = document.getElementById('ch11NeuralSlider');
+        const arena = document.getElementById('ch11OverrideArena');
+        if (slider) {
+            slider.value = 50;
+            slider.disabled = true;
+        }
+        if (arena) arena.classList.remove('ch11-shake');
+        document.getElementById('ch11SyncFill').style.width = "100%";
+        document.getElementById('ch11SyncFill').style.background = "#00f5d4";
+        document.getElementById('ch11StatusBadge').textContent = "● CORTEX STABILIZED";
+        document.getElementById('ch11PctTxt').textContent = "NEURAL SYNC: 100%";
+        document.getElementById('ch11PullTxt').textContent = "✓ OVERRIDE REJECTED";
+        document.getElementById('hiddenSec11').style.display = 'block';
+    }
+
+    function openCh11Memory(num, btnEl) {
+        if (typeof playBeep === 'function') playBeep(true);
+        document.querySelectorAll('.ch11-tab-btn').forEach(b => b.classList.remove('active-mem'));
+        btnEl.classList.add('active-mem');
+        document.getElementById('ch11LogViewer').innerHTML = ch11LogsData[num];
+        if (num === 3) {
+            document.getElementById('ch11FinalBridge').style.display = 'block';
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const ch10El = document.getElementById('chapter10');
+        const ch11El = document.getElementById('chapter11');
+        if (ch10El && ch11El) {
+            ch10El.insertAdjacentElement('afterend', ch11El);
+        }
+
+        // Add CH 11 button to top and bottom chapter switchers
+        const switchers = document.querySelectorAll('.chapter-switcher');
+        if (switchers.length >= 2) {
+            const tBtn = document.createElement('button');
+            tBtn.className = 'ch-btn locked-ch';
+            tBtn.id = 'topBtn11';
+            tBtn.textContent = '🔒 ' + chapterTitles[11];
+            tBtn.onclick = () => switchMultiverseChapter(11);
+            switchers[0].appendChild(tBtn);
+
+            const bBtn = document.createElement('button');
+            bBtn.className = 'ch-btn locked-ch';
+            bBtn.id = 'botBtn11';
+            bBtn.textContent = '🔒 ' + chapterTitles[11];
+            bBtn.onclick = () => switchMultiverseChapter(11);
+            switchers[1].appendChild(bBtn);
+        }
+
+        // Inject Launch Button inside Chapter 10's Finale Section (#hiddenSec10)
+        const hiddenSec10 = document.getElementById('hiddenSec10');
+        if (hiddenSec10) {
+            const act2Banner = document.createElement('div');
+            act2Banner.style.cssText = "margin-top:16px; padding:15px; background:#1c030a; border:1px solid #ff2a55; border-radius:8px; text-align:center;";
+            act2Banner.innerHTML = `
+                <div style="font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:2px; color:#ffbe0b; margin-bottom:6px;">⚠️ TIMELINE PARADOX DETECTED ⚠️</div>
+                <p style="font-size:13.5px; color:#ffd0da; margin:0 0 10px;">ওমেগা কোরের ভেতর থেকে এক সমান্তরাল সত্তা (Object Zero) তোমার স্নায়ুতে আঘাত হানছে!</p>
+                <button type="button" class="reflex-btn" onclick="unlockMultiverseUI(11, true); switchMultiverseChapter(11);">
+                    ⚡ ENTER ACT II: সমান্তরাল পতন (CH 11) ↗
+                </button>
+            `;
+            hiddenSec10.appendChild(act2Banner);
+        }
+
+        const slider = document.getElementById('ch11NeuralSlider');
+        if (slider) {
+            slider.addEventListener('input', evaluateCh11Stability);
+        }
+
+        // Unlock Ch 11 when Ch 10 is solved or via Creator Override (arka99)
+        document.addEventListener('click', () => {
+            if ((gameState.ch10Solved || (gameState.unlockedCh8 && gameState.unlockedCh2)) && !gameState.unlockedCh11) {
+                unlockMultiverseUI(11, true);
+            }
+        });
+
+        if (gameState.unlockedCh11 || gameState.ch10Solved) unlockMultiverseUI(11, false);
+        if (gameState.ch11Solved) applyCh11SolvedState();
+
+        // Enemy Pull Loop (Only active when player is viewing Chapter 11)
+        setInterval(() => {
+            if (gameState.currentCh !== 11 || gameState.ch11Solved) return;
+            const s = document.getElementById('ch11NeuralSlider');
+            const pullTxt = document.getElementById('ch11PullTxt');
+            if (!s) return;
+
+            let val = parseFloat(s.value);
+            const pull = 3.0 + Math.random() * 5.2;
+            if (val < 50) {
+                val = Math.max(0, val - pull);
+                if (pullTxt) pullTxt.textContent = "◄◄ OBJECT ZERO PULLING LEFT";
+            } else {
+                val = Math.min(100, val + pull);
+                if (pullTxt) pullTxt.textContent = "OBJECT ZERO PULLING RIGHT ►►";
+            }
+            s.value = val;
+            evaluateCh11Stability();
+        }, 160);
+    });
+</script>
 
 </body>
 </html>
