@@ -3351,7 +3351,7 @@ function translateGlyphText(val) {
     }
 
     // ==================== CHAPTER 10: QUANTUM HEARTBEAT SURGE MECHANICS ====================
-    let ch10Hits = 0;
+        let ch10Hits = 0;
     let ch10PulseRadius = 20;
     let ch10PulseGrowing = true;
     const CH10_TARGET_RADIUS = 88;
@@ -3359,29 +3359,31 @@ function translateGlyphText(val) {
     function triggerQuantumSurge() {
         if (gameState.ch10Solved) return;
 
+        // সহজ মোড: টলারেন্স বা উইন্ডো বাড়িয়ে ২৮ পিক্সেল করা হলো (খুব সহজে মিলবে)
         const diff = Math.abs(ch10PulseRadius - CH10_TARGET_RADIUS);
         const fb = document.getElementById('ch10FeedbackTxt');
 
-        if (diff <= 18) {
+        if (diff <= 28) {
             ch10Hits++;
             triggerHapticPattern([100, 50, 140]);
             if (typeof playBeep === 'function') playBeep(true);
-            fb.textContent = `✓ PERFECT SURGE! (${ch10Hits}/5)`;
+            fb.textContent = `✓ PERFECT SURGE! (${ch10Hits}/3)`;
             fb.style.color = "#00f5d4";
         } else {
-            ch10Hits = Math.max(0, ch10Hits - 1);
-            triggerHapticPattern(260);
+            // ভুল টাইমিংয়ে চাপলে পয়েন্ট কমবে না, শুধু গাইড করবে
+            triggerHapticPattern(150);
             if (typeof playBeep === 'function') playBeep(false);
-            fb.textContent = "✕ OUT OF PHASE! WAIT FOR GREEN RING";
-            fb.style.color = "#ff2a55";
+            fb.textContent = "✕ একটু সাবধানে! সবুজ বলয়ের কাছে এলে চাপুন";
+            fb.style.color = "#ffbe0b";
         }
 
-        const pct = ch10Hits * 20;
+        // সহজ মোড: ৫টির জায়গায় মাত্র ৩ বার সফল হলেই পাস!
+        const pct = Math.min(100, ch10Hits * 34);
         document.getElementById('ch10StabilityTxt').textContent = pct + "%";
-        document.getElementById('ch10SurgeBadge').textContent = `HARMONY: ${ch10Hits} / 5`;
-        document.getElementById('ch10SurgeBtn').textContent = `⟡ EMIT QUANTUM PULSE (${ch10Hits} / 5) ⟡`;
+        document.getElementById('ch10SurgeBadge').textContent = `HARMONY: ${ch10Hits} / 3`;
+        document.getElementById('ch10SurgeBtn').textContent = `⟡ EMIT QUANTUM PULSE (${ch10Hits} / 3) ⟡`;
 
-        if (ch10Hits >= 5) {
+        if (ch10Hits >= 3) {
             gameState.ch10Solved = true;
             if (typeof saveState === 'function') saveState();
             applyCh10SolvedState();
@@ -3392,13 +3394,13 @@ function translateGlyphText(val) {
     }
 
     function applyCh10SolvedState() {
-        ch10Hits = 5;
+        ch10Hits = 3;
         document.getElementById('ch10StabilityTxt').textContent = "100%";
         document.getElementById('ch10SurgeBadge').textContent = "● OMEGA STABILIZED";
-        document.getElementById('ch10SurgeBtn').textContent = "✓ MULTIVERSE UNIFIED (5 / 5)";
+        document.getElementById('ch10SurgeBtn').textContent = "✓ MULTIVERSE UNIFIED (3 / 3)";
         document.getElementById('hiddenSec10').style.display = 'block';
     }
-
+    
     // ==================== RENDER LOOP FOR CH 09 & CH 10 CANVASES ====================
     function startExpansionCanvasLoop() {
         const orbCanvas = document.getElementById('orbitalCanvas');
