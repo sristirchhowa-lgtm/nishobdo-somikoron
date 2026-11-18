@@ -2897,5 +2897,611 @@ function translateGlyphText(val) {
             renderScopeLoop();
         });
     </script>
+<!-- ==================== VERIFIED EXPANSION PACK: CHAPTER 09 & 10 (ACT II: CRIMSON MULTIVERSE) ==================== -->
+<style>
+    /* Dimension Breach Shockwave Overlay */
+    #breachOverlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #1a0005;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #ff2a55;
+        font-family: 'Orbitron', 'Noto Sans Bengali', monospace;
+        text-align: center;
+        padding: 20px;
+    }
+    #breachOverlay.breach-active {
+        display: flex;
+        animation: violentGlitch 0.14s infinite;
+    }
+    @keyframes violentGlitch {
+        0% { transform: translate(0, 0) scale(1); filter: hue-rotate(0deg); background: #1a0005; }
+        25% { transform: translate(-8px, 5px) scale(1.02); filter: invert(0.15); background: #33000b; }
+        50% { transform: translate(7px, -6px) scale(0.99); filter: hue-rotate(-40deg); }
+        75% { transform: translate(-5px, -4px); background: #090003; }
+        100% { transform: translate(0, 0); }
+    }
+
+    /* Act II Crimson Void Theme Override (Triggered in Ch 09 & 10) */
+    body.crimson-universe {
+        --cyan: #ff2a55;
+        --magenta: #ff9e00;
+        --amber: #00f5d4;
+        --green: #ffbe0b;
+        --dark: #070104;
+        --card-bg: #140308f2;
+        --border-col: #5c1628;
+        background: #070104 !important;
+    }
+    body.crimson-universe .stars {
+        background-image: 
+            radial-gradient(#ff2a55 1.2px, transparent 1.2px),
+            radial-gradient(#ff9e0088 1px, transparent 1px) !important;
+        opacity: 0.35;
+    }
+
+    .reflex-canvas-box {
+        background: #090104;
+        border: 1px solid var(--cyan);
+        border-radius: 10px;
+        padding: 14px;
+        text-align: center;
+        margin: 15px 0;
+        box-shadow: inset 0 0 30px rgba(255, 42, 85, 0.15);
+    }
+    .reflex-btn {
+        width: 100%;
+        padding: 14px;
+        margin-top: 12px;
+        font-family: 'Orbitron', 'Noto Sans Bengali', sans-serif;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: #fff;
+        background: linear-gradient(90deg, #59081b 0%, #9e0b2e 50%, #59081b 100%);
+        border: 1px solid #ff2a55;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 0 18px rgba(255, 42, 85, 0.4);
+        transition: 0.15s;
+        user-select: none;
+    }
+    .reflex-btn:active {
+        transform: scale(0.97);
+        background: #ff2a55;
+        color: #000;
+    }
+</style>
+
+<!-- Full-Screen Dimension Breach Alert Overlay -->
+<div id="breachOverlay">
+    <div style="font-size:12px; letter-spacing:4px; color:#ffbe0b; margin-bottom:8px;">⚠️ CRITICAL SPACETIME RUPTURE ⚠️</div>
+    <div style="font-size:clamp(22px, 5vw, 38px); font-weight:800; letter-spacing:3px; text-shadow:0 0 20px #ff2a55;">REALITY INVERSION DETECTED</div>
+    <p style="color:#ffd0da; font-size:14px; max-width:440px; margin-top:12px;">ঘটনা দিগন্তের ওপারে স্থান-কালের মেরু উল্টে যাচ্ছে... অ্যান্টি-ম্যাটার ডাইমেনশন লোড হচ্ছে...</p>
+    <div style="margin-top:18px; font-family:monospace; font-size:11px; color:#00f5d4;">[ HAPTIC SHOCKWAVE &amp; METRIC SHIFT: ACTIVE ]</div>
+</div>
+
+<!-- Hidden Template Holder for Chapter 9 & 10 -->
+<div id="expansionTemplates" style="display:none;">
+    <!-- ==================== CHAPTER 09 (ORBITAL PHASE LOCK) ==================== -->
+    <div id="chapter9" class="chapter-view">
+        <section class="section">
+            <div class="heading">
+                <span>01 / THE INVERTED MULTIVERSE</span>
+                <span class="red">LOG: 009 // NEGATIVE METRIC</span>
+            </div>
+            <div class="story-text">
+                <p>ঘটনা দিগন্তের পর্দা ছিঁড়ে অরি এবং থিয়া যে মহাবিশ্বে আছড়ে পড়ল, সেখানে আকাশের রং নীলের বদলে গাঢ় রক্তিম। চারপাশের বাতাসে ভাসমান কণাগুলো সময়ের উল্টো স্রোতে কাঁপছে। এটি হলো 'অ্যান্টি-ভ্যাকুয়াম ডাইমেনশন'—যেখানে মহাকর্ষ আকর্ষণের বদলে বিকর্ষণ করে!</p>
+            </div>
+            <div class="dialogue-box thea-speak">
+                <span class="speaker-tag" style="color:var(--cyan)">THEA // MULTIVERSE_LINK</span>
+                "অরি! এখানকার ভৌত ধ্রুবকগুলো আমাদের চেনা মহাবিশ্বের সম্পূর্ণ বিপরীত। এখানে কোনো কমান্ড টাইপ করে কাজ হবে না—আমাদের স্নায়ুর রিফ্লেক্স দিয়ে সরাসরি অ্যান্টি-ম্যাটার রিংগুলোর ঘূর্ণন থামাতে হবে!"
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="heading">
+                <span>02 / ORBITAL RING INTERCEPTOR (NO KEYPAD)</span>
+                <span class="amber" id="ch9StatusBadge">LOCKED: 0 / 3 RINGS</span>
+            </div>
+            <div class="story-text">
+                <p><strong>নতুন মেকানিক্স (রিফ্লেক্স চ্যালেঞ্জ):</strong> নিচের রাডারে ৩টি অ্যান্টি-ম্যাটার বলয় ঘুরছে। বলয়ের উজ্জ্বল বিন্দুটি যখনই একদম <strong>উপরের সবুজ লেজার রেখার (Top Alignment Zone)</strong> ভেতরে আসবে, ঠিক সেই মুহূর্তে নিচের বাটনে ট্যাপ করে একে একে ৩টি রিং লক করো!</p>
+            </div>
+
+            <div class="reflex-canvas-box">
+                <div style="display:flex; justify-content:space-between; font-family:'Orbitron',monospace; font-size:10px; color:#ffb3c4; margin-bottom:8px;">
+                    <span id="ch9RingTargetTxt">ACTIVE RING: 01 (INNER)</span>
+                    <span id="ch9AccuracyTxt" style="color:var(--amber)">ALIGN AT TOP LASER ▲</span>
+                </div>
+                <canvas id="orbitalCanvas" width="300" height="260" style="width:100%; max-width:300px; height:260px; margin:auto; display:block; background:#050002; border-radius:8px; border:1px solid #3d0c19;"></canvas>
+                
+                <button type="button" class="reflex-btn" id="ch9LockBtn" onclick="lockCurrentOrbitalRing()">
+                    ⚡ LOCK ORBITAL PHASE [RING 1]
+                </button>
+                <button type="button" class="action-btn" onclick="resetOrbitalRings()" style="width:100%; margin-top:8px; font-size:9.5px;">
+                    ↺ RESET RINGS
+                </button>
+            </div>
+        </section>
+
+        <section class="section" id="hiddenSec9" style="display:none; border-color:var(--amber);">
+            <div class="heading">
+                <span>03 / DIMENSIONAL ANCHOR SECURED</span>
+                <span class="amber">PHASE SYNCHRONIZED</span>
+            </div>
+            <div class="story-text" style="color:#ffd6e0">
+                <p>তিনটি অ্যান্টি-ম্যাটার বলয় একই সরলরেখায় লক হতেই রক্তিম আকাশে এক বিশাল মহাজাগতিক সেতুর জন্ম হলো। অরির মস্তিষ্কের ফ্রিকোয়েন্সি এখন দুটি মহাবিশ্বেরই সমীকরণ পড়তে পারছে। সামনেই দেখা যাচ্ছে এই প্রতি-মহাবিশ্বের হৃৎপিণ্ড—'দ্য ওমেগা সিঙ্গুলারিটি'!</p>
+                <button class="action-btn" onclick="switchMultiverseChapter(10)">ENTER OMEGA CORE (CH 10) ↗</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== CHAPTER 10 (QUANTUM HEARTBEAT SURGE) ==================== -->
+    <div id="chapter10" class="chapter-view">
+        <section class="section">
+            <div class="heading">
+                <span>01 / THE OMEGA SINGULARITY</span>
+                <span class="cyan">LOG: 010 // TRUE FINALE</span>
+            </div>
+            <div class="story-text">
+                <p>অরি এবং থিয়া এসে দাঁড়াল স্থান ও কালের একদম শেষ প্রান্তে। তাদের সামনে কোনো যন্ত্র নেই, কোনো দেয়াল নেই—কেবল এক স্পন্দনশীল মহাজাগতিক হৃৎপিণ্ড, যা প্রতি মুহূর্তে সংকুচিত ও প্রসারিত হচ্ছে।</p>
+            </div>
+            <div class="dialogue-box thea-speak">
+                <span class="speaker-tag" style="color:var(--amber)">THEA // FINAL_PROTOCOL</span>
+                "এই হৃৎস্পন্দনটিই হলো 'নিঃশব্দ সমীকরণ', অরি। এটি যখন প্রসারিত হয়ে বাইরের সবুজ বলয়টিকে স্পর্শ করবে, ঠিক তখনই তোমার চেতনার পালস ছুড়ে দিতে হবে। পরপর ৫ বার নিখুঁত ছন্দে আঘাত করতে পারলেই দুটি মহাবিশ্ব চিরতরে স্থিতিশীল হয়ে যাবে!"
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="heading">
+                <span>02 / QUANTUM RESONANCE SURGE</span>
+                <span class="amber" id="ch10SurgeBadge">HARMONY: 0 / 5</span>
+            </div>
+            <div class="story-text">
+                <p><strong>চূড়ান্ত পরীক্ষা:</strong> ভেতরের লালচে শক্তি-বলয়টি বড় হতে হতে যখনই বাইরের <strong>সবুজ টার্গেট বলয়ের (Target Ring)</strong> ওপর আসবে, ঠিক তখনই নিচের <strong>PULSE SURGE</strong> বাটনে ট্যাপ করো। (ভুল টাইমিংয়ে চাপলে চার্জ কমে যাবে!)</p>
+            </div>
+
+            <div class="reflex-canvas-box">
+                <div style="display:flex; justify-content:space-between; font-family:'Orbitron',monospace; font-size:10px; color:#ffb3c4; margin-bottom:8px;">
+                    <span>CORE STABILITY: <strong id="ch10StabilityTxt" style="color:var(--amber)">0%</strong></span>
+                    <span id="ch10FeedbackTxt">WAIT FOR GREEN RING...</span>
+                </div>
+                <canvas id="surgeCanvas" width="300" height="240" style="width:100%; max-width:300px; height:240px; margin:auto; display:block; background:#050002; border-radius:8px; border:1px solid #3d0c19;"></canvas>
+
+                <button type="button" class="reflex-btn" id="ch10SurgeBtn" onclick="triggerQuantumSurge()">
+                    ⟡ EMIT QUANTUM PULSE (0 / 5) ⟡
+                </button>
+            </div>
+        </section>
+
+        <section class="section" id="hiddenSec10" style="display:none; border-color:var(--amber);">
+            <div class="heading">
+                <span>03 / THE ETERNAL EQUATION</span>
+                <span class="amber">MULTIVERSE UNIFIED</span>
+            </div>
+            <div class="story-text" style="color:#fff0f3">
+                <p>পঞ্চম পালসটি নিখুঁতভাবে আঘাত করতেই পুরো রক্তিম মহাবিশ্ব এক শান্ত সোনালী ও নীলচে জ্যোতিতে স্নাত হলো। অরির ভেতরের সব ভয়, ট্রমা আর একাকীত্ব মহাবিশ্বের অসীম শক্তির সাথে মিলেমিশে এক পরম সাম্যাবস্থায় (Absolute Equilibrium) পৌঁছে গেছে।</p>
+                <p>থিয়া মৃদু হেসে অরির দিকে তাকাল। "সমীকরণটি সম্পূর্ণ হয়েছে, অরি। আমাদের যাত্রা শেষ—কিংবা হয়তো এক নতুন অনন্তের শুরু।"</p>
+            </div>
+            <div class="dossier-card">
+                <div class="heading">
+                    <span style="color:var(--amber)">OMEGA MULTIVERSE DOSSIER // ALL 10 CHAPTERS COMPLETE</span>
+                    <span class="amber">RANK: GRAND ARCHITECT</span>
+                </div>
+                <p style="font-size:14px; color:#ffd6e0; margin:8px 0;">
+                    অভিনন্দন! তুমি <strong>'নিঃশব্দ সমীকরণ' (অধ্যায় ১–১০)</strong>-এর সমস্ত কোয়ান্টাম পাজল এবং ডাইমেনশনাল রিফ্লেক্স চ্যালেঞ্জ জয় করেছ।
+                </p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+                    <button class="action-btn" onclick="returnToPortal()">🏠 RETURN TO PORTAL</button>
+                    <button class="action-btn" onclick="exportIndexHtml()" style="border-color:var(--amber); color:var(--amber);">⬇️ EXPORT FULL v3.0 GAME</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    // ==================== VERIFIED EXPANSION ENGINE (FAULT-TOLERANT) ====================
+    chapterTitles[9] = "CH 09: প্রতি-মহাবিশ্বের কক্ষপথ";
+    chapterTitles[10] = "CH 10: মহাজাগতিক হৃৎস্পন্দন";
+
+    function unlockMultiverseUI(chNum, save = true) {
+        gameState['unlockedCh' + chNum] = true;
+        const topBtn = document.getElementById('topBtn' + chNum);
+        const botBtn = document.getElementById('botBtn' + chNum);
+        if (topBtn) {
+            topBtn.classList.remove('locked-ch');
+            topBtn.textContent = chapterTitles[chNum];
+        }
+        if (botBtn) {
+            botBtn.classList.remove('locked-ch');
+            botBtn.textContent = chapterTitles[chNum];
+        }
+        if (save && typeof saveState === 'function') saveState();
+    }
+
+    function switchMultiverseChapter(chNum) {
+        if (chNum >= 9) {
+            if (!gameState['unlockedCh' + chNum]) {
+                if (typeof playBeep === 'function') playBeep(false);
+                if (typeof showToast === 'function') showToast(`🔒 অধ্যায় ${chNum} এখনো লকড! আগের অধ্যায়টি সম্পূর্ণ করুন।`);
+                return;
+            }
+            gameState.currentCh = chNum;
+            gameState.started = true;
+            if (typeof saveState === 'function') saveState();
+
+            document.querySelectorAll('.chapter-view').forEach(el => el.classList.remove('active-chapter'));
+            document.querySelectorAll('.ch-btn').forEach(el => el.classList.remove('active'));
+
+            const targetView = document.getElementById('chapter' + chNum);
+            if (targetView) targetView.classList.add('active-chapter');
+
+            const tBtn = document.getElementById('topBtn' + chNum);
+            const bBtn = document.getElementById('botBtn' + chNum);
+            if (tBtn) tBtn.classList.add('active');
+            if (bBtn) bBtn.classList.add('active');
+
+            document.body.classList.add('crimson-universe');
+            const st = document.getElementById('globalStatus');
+            if (st) {
+                st.style.color = '#ff2a55';
+                st.textContent = '⚠️ MULTIVERSE CH ' + chNum;
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (typeof triggerFrost === 'function') triggerFrost();
+        } else {
+            document.body.classList.remove('crimson-universe');
+            if (typeof switchChapter === 'function') switchChapter(chNum);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const ch8El = document.getElementById('chapter8');
+        const ch9El = document.getElementById('chapter9');
+        const ch10El = document.getElementById('chapter10');
+
+        if (ch8El && ch9El && ch10El) {
+            ch8El.insertAdjacentElement('afterend', ch9El);
+            ch9El.insertAdjacentElement('afterend', ch10El);
+        }
+
+        // Attach theme cleanup on Chapters 1-8 buttons
+        for (let i = 1; i <= 8; i++) {
+            const tb = document.getElementById('topBtn' + i);
+            const bb = document.getElementById('botBtn' + i);
+            if (tb) tb.addEventListener('click', () => document.body.classList.remove('crimson-universe'));
+            if (bb) bb.addEventListener('click', () => document.body.classList.remove('crimson-universe'));
+        }
+
+        // Create Top & Bottom Switcher Buttons for Ch 9 & 10
+        const switchers = document.querySelectorAll('.chapter-switcher');
+        if (switchers.length >= 2) {
+            [9, 10].forEach(c => {
+                const tBtn = document.createElement('button');
+                tBtn.className = 'ch-btn locked-ch';
+                tBtn.id = 'topBtn' + c;
+                tBtn.textContent = '🔒 ' + chapterTitles[c];
+                tBtn.onclick = () => switchMultiverseChapter(c);
+                switchers[0].appendChild(tBtn);
+
+                const bBtn = document.createElement('button');
+                bBtn.className = 'ch-btn locked-ch';
+                bBtn.id = 'botBtn' + c;
+                bBtn.textContent = '🔒 ' + chapterTitles[c];
+                bBtn.onclick = () => switchMultiverseChapter(c);
+                switchers[1].appendChild(bBtn);
+            });
+        }
+
+        // Inject "LAUNCH NEW UNIVERSE (CH 09)" inside Chapter 8 Unlocked Section (#hiddenSec8)
+        const hiddenSec8 = document.getElementById('hiddenSec8');
+        if (hiddenSec8) {
+            const breachCallout = document.createElement('div');
+            breachCallout.style.cssText = "margin-top:18px; padding:15px; background:#1f040b; border:1px solid #ff2a55; border-radius:8px; text-align:center; box-shadow:0 0 20px rgba(255,42,85,0.25);";
+            breachCallout.innerHTML = `
+                <div style="font-family:'Orbitron',sans-serif; font-size:10px; letter-spacing:2px; color:#ffbe0b; margin-bottom:6px;">⚠️ ANOMALY BEYOND THE HORIZON ⚠️</div>
+                <p style="font-size:13.5px; color:#ffd0da; margin:0 0 10px;">ইভেন্ট হরাইজনের ওপার থেকে একটি রক্তিম অ্যান্টি-ম্যাটার ইউনিভার্সের সিগন্যাল পাওয়া যাচ্ছে!</p>
+                <button type="button" class="reflex-btn" onclick="triggerDimensionBreach()" style="margin-top:4px;">
+                    ⚡ LAUNCH NEW UNIVERSE (CH 09) ↗
+                </button>
+            `;
+            hiddenSec8.appendChild(breachCallout);
+        }
+
+        // Global listener to unlock Ch 9 & 10 when Creator Override (`arka99`) is typed anywhere
+        document.addEventListener('click', () => {
+            if (gameState.unlockedCh8 && gameState.unlockedCh2 && !gameState.unlockedCh9) {
+                unlockMultiverseUI(9, false);
+                unlockMultiverseUI(10, true);
+            }
+        });
+
+        if (gameState.unlockedCh9) unlockMultiverseUI(9, false);
+        if (gameState.unlockedCh10) unlockMultiverseUI(10, false);
+        if (gameState.ch9Solved) applyCh9SolvedState();
+        if (gameState.ch10Solved) applyCh10SolvedState();
+
+        startExpansionCanvasLoop();
+    });
+
+    // ==================== HAPTIC VIBRATION & AUDIO ALARM ENGINE ====================
+    function triggerHapticPattern(pattern) {
+        try {
+            if (navigator && typeof navigator.vibrate === 'function') {
+                navigator.vibrate(pattern);
+            }
+        } catch (e) {}
+    }
+
+    function playDimensionSiren() {
+        try {
+            if (typeof audioEnabled !== 'undefined' && !audioEnabled) return;
+            if (typeof initAudio === 'function') initAudio();
+            if (typeof audioCtx === 'undefined' || !audioCtx) return;
+
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(110, now);
+            osc.frequency.linearRampToValueAtTime(55, now + 0.6);
+            osc.frequency.linearRampToValueAtTime(140, now + 1.2);
+            osc.frequency.exponentialRampToValueAtTime(42, now + 2.1);
+
+            gain.gain.setValueAtTime(0.16, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 2.2);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 2.2);
+        } catch (e) {}
+    }
+
+    function triggerDimensionBreach() {
+        unlockMultiverseUI(9, true);
+        const overlay = document.getElementById('breachOverlay');
+        overlay.classList.add('breach-active');
+
+        triggerHapticPattern([300, 100, 300, 100, 650, 120, 400]);
+        playDimensionSiren();
+
+        setTimeout(() => {
+            overlay.classList.remove('breach-active');
+            switchMultiverseChapter(9);
+            if (typeof showToast === 'function') showToast("⚡ নতুন ইউনিভার্স (অধ্যায় ০৯) লঞ্চ হয়েছে!");
+        }, 2300);
+    }
+
+    // ==================== CHAPTER 09: ORBITAL PHASE LOCK MECHANICS ====================
+    let ch9Rings = [
+        { radius: 42, angle: 0, speed: 0.042, locked: false, color: '#ff2a55' },
+        { radius: 74, angle: 2.1, speed: -0.055, locked: false, color: '#ff9e00' },
+        { radius: 105, angle: 4.2, speed: 0.068, locked: false, color: '#00f5d4' }
+    ];
+    let ch9ActiveRingIndex = 0;
+
+    function lockCurrentOrbitalRing() {
+        if (gameState.ch9Solved || ch9ActiveRingIndex >= 3) return;
+        const ring = ch9Rings[ch9ActiveRingIndex];
+
+        const targetAngle = (Math.PI * 1.5);
+        let norm = ring.angle % (Math.PI * 2);
+        if (norm < 0) norm += Math.PI * 2;
+
+        let diff = Math.abs(norm - targetAngle);
+        if (diff > Math.PI) diff = (Math.PI * 2) - diff;
+
+        const feedbackEl = document.getElementById('ch9AccuracyTxt');
+
+        if (diff <= 0.48) {
+            ring.angle = targetAngle;
+            ring.locked = true;
+            ch9ActiveRingIndex++;
+            triggerHapticPattern([80, 40, 120]);
+            if (typeof playBeep === 'function') playBeep(true);
+
+            document.getElementById('ch9StatusBadge').textContent = `LOCKED: ${ch9ActiveRingIndex} / 3 RINGS`;
+
+            if (ch9ActiveRingIndex < 3) {
+                document.getElementById('ch9RingTargetTxt').textContent = `ACTIVE RING: 0${ch9ActiveRingIndex + 1}`;
+                document.getElementById('ch9LockBtn').textContent = `⚡ LOCK ORBITAL PHASE [RING ${ch9ActiveRingIndex + 1}]`;
+                feedbackEl.textContent = "✓ RING LOCKED! NEXT RING...";
+                feedbackEl.style.color = "var(--amber)";
+            } else {
+                gameState.ch9Solved = true;
+                unlockMultiverseUI(10, true);
+                applyCh9SolvedState();
+                triggerHapticPattern([150, 80, 250]);
+                if (typeof showToast === 'function') showToast("🔓 ৩টি অ্যান্টি-ম্যাটার রিং লক সম্পন্ন! অধ্যায় ১০ আনলক হয়েছে।");
+                document.getElementById('hiddenSec9').scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            triggerHapticPattern(220);
+            if (typeof playBeep === 'function') playBeep(false);
+            feedbackEl.textContent = "✕ MISSED! WAIT FOR TOP LASER ▲";
+            feedbackEl.style.color = "#ff2a55";
+        }
+    }
+
+    function applyCh9SolvedState() {
+        ch9Rings.forEach(r => { r.angle = Math.PI * 1.5; r.locked = true; });
+        ch9ActiveRingIndex = 3;
+        document.getElementById('ch9StatusBadge').textContent = "● ALL 3 RINGS LOCKED";
+        document.getElementById('ch9LockBtn').textContent = "✓ ORBITAL PHASE SYNCHRONIZED";
+        document.getElementById('hiddenSec9').style.display = 'block';
+    }
+
+    function resetOrbitalRings() {
+        gameState.ch9Solved = false;
+        ch9ActiveRingIndex = 0;
+        ch9Rings[0].locked = false;
+        ch9Rings[1].locked = false;
+        ch9Rings[2].locked = false;
+        document.getElementById('ch9StatusBadge').textContent = "LOCKED: 0 / 3 RINGS";
+        document.getElementById('ch9RingTargetTxt').textContent = "ACTIVE RING: 01 (INNER)";
+        document.getElementById('ch9LockBtn').textContent = "⚡ LOCK ORBITAL PHASE [RING 1]";
+        document.getElementById('hiddenSec9').style.display = 'none';
+        if (typeof playBeep === 'function') playBeep(false);
+    }
+
+    // ==================== CHAPTER 10: QUANTUM HEARTBEAT SURGE MECHANICS ====================
+    let ch10Hits = 0;
+    let ch10PulseRadius = 20;
+    let ch10PulseGrowing = true;
+    const CH10_TARGET_RADIUS = 88;
+
+    function triggerQuantumSurge() {
+        if (gameState.ch10Solved) return;
+
+        const diff = Math.abs(ch10PulseRadius - CH10_TARGET_RADIUS);
+        const fb = document.getElementById('ch10FeedbackTxt');
+
+        if (diff <= 18) {
+            ch10Hits++;
+            triggerHapticPattern([100, 50, 140]);
+            if (typeof playBeep === 'function') playBeep(true);
+            fb.textContent = `✓ PERFECT SURGE! (${ch10Hits}/5)`;
+            fb.style.color = "#00f5d4";
+        } else {
+            ch10Hits = Math.max(0, ch10Hits - 1);
+            triggerHapticPattern(260);
+            if (typeof playBeep === 'function') playBeep(false);
+            fb.textContent = "✕ OUT OF PHASE! WAIT FOR GREEN RING";
+            fb.style.color = "#ff2a55";
+        }
+
+        const pct = ch10Hits * 20;
+        document.getElementById('ch10StabilityTxt').textContent = pct + "%";
+        document.getElementById('ch10SurgeBadge').textContent = `HARMONY: ${ch10Hits} / 5`;
+        document.getElementById('ch10SurgeBtn').textContent = `⟡ EMIT QUANTUM PULSE (${ch10Hits} / 5) ⟡`;
+
+        if (ch10Hits >= 5) {
+            gameState.ch10Solved = true;
+            if (typeof saveState === 'function') saveState();
+            applyCh10SolvedState();
+            triggerHapticPattern([200, 80, 200, 80, 500]);
+            if (typeof showToast === 'function') showToast("🌌 মহাজাগতিক সমীকরণ সম্পূর্ণ! সব অধ্যায় (১–১০) সম্পন্ন হয়েছে!");
+            document.getElementById('hiddenSec10').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    function applyCh10SolvedState() {
+        ch10Hits = 5;
+        document.getElementById('ch10StabilityTxt').textContent = "100%";
+        document.getElementById('ch10SurgeBadge').textContent = "● OMEGA STABILIZED";
+        document.getElementById('ch10SurgeBtn').textContent = "✓ MULTIVERSE UNIFIED (5 / 5)";
+        document.getElementById('hiddenSec10').style.display = 'block';
+    }
+
+    // ==================== RENDER LOOP FOR CH 09 & CH 10 CANVASES ====================
+    function startExpansionCanvasLoop() {
+        const orbCanvas = document.getElementById('orbitalCanvas');
+        const orbCtx = orbCanvas ? orbCanvas.getContext('2d') : null;
+
+        const srgCanvas = document.getElementById('surgeCanvas');
+        const srgCtx = srgCanvas ? srgCanvas.getContext('2d') : null;
+
+        function loop() {
+            if (gameState.currentCh === 9 && orbCtx) {
+                const w = orbCanvas.width;
+                const h = orbCanvas.height;
+                const cx = w / 2;
+                const cy = h / 2;
+
+                orbCtx.clearRect(0, 0, w, h);
+
+                orbCtx.fillStyle = "rgba(0, 245, 212, 0.14)";
+                orbCtx.beginPath();
+                orbCtx.moveTo(cx, cy);
+                orbCtx.arc(cx, cy, 120, Math.PI * 1.5 - 0.38, Math.PI * 1.5 + 0.38);
+                orbCtx.closePath();
+                orbCtx.fill();
+
+                orbCtx.strokeStyle = "#00f5d4";
+                orbCtx.lineWidth = 2;
+                orbCtx.beginPath();
+                orbCtx.moveTo(cx, cy - 22);
+                orbCtx.lineTo(cx, cy - 122);
+                orbCtx.stroke();
+
+                orbCtx.fillStyle = "#ff2a55";
+                orbCtx.beginPath();
+                orbCtx.arc(cx, cy, 8, 0, Math.PI * 2);
+                orbCtx.fill();
+
+                ch9Rings.forEach((r, idx) => {
+                    if (!r.locked) {
+                        r.angle += r.speed;
+                    }
+                    orbCtx.strokeStyle = r.locked ? "#00f5d4" : (idx === ch9ActiveRingIndex ? r.color : "#3d1420");
+                    orbCtx.lineWidth = idx === ch9ActiveRingIndex ? 2.5 : 1.5;
+                    orbCtx.beginPath();
+                    orbCtx.arc(cx, cy, r.radius, 0, Math.PI * 2);
+                    orbCtx.stroke();
+
+                    const nx = cx + Math.cos(r.angle) * r.radius;
+                    const ny = cy + Math.sin(r.angle) * r.radius;
+
+                    orbCtx.fillStyle = r.locked ? "#00f5d4" : r.color;
+                    orbCtx.beginPath();
+                    orbCtx.arc(nx, ny, 7, 0, Math.PI * 2);
+                    orbCtx.fill();
+                });
+            }
+
+            if (gameState.currentCh === 10 && srgCtx) {
+                const w = srgCanvas.width;
+                const h = srgCanvas.height;
+                const cx = w / 2;
+                const cy = h / 2;
+
+                srgCtx.clearRect(0, 0, w, h);
+
+                if (!gameState.ch10Solved) {
+                    const speed = 1.35 + (ch10Hits * 0.25);
+                    if (ch10PulseGrowing) {
+                        ch10PulseRadius += speed;
+                        if (ch10PulseRadius >= 112) ch10PulseGrowing = false;
+                    } else {
+                        ch10PulseRadius -= speed;
+                        if (ch10PulseRadius <= 18) ch10PulseGrowing = true;
+                    }
+                } else {
+                    ch10PulseRadius = CH10_TARGET_RADIUS;
+                }
+
+                srgCtx.strokeStyle = "#00f5d4";
+                srgCtx.lineWidth = 3;
+                srgCtx.setLineDash([6, 4]);
+                srgCtx.beginPath();
+                srgCtx.arc(cx, cy, CH10_TARGET_RADIUS, 0, Math.PI * 2);
+                srgCtx.stroke();
+                srgCtx.setLineDash([]);
+
+                const inZone = Math.abs(ch10PulseRadius - CH10_TARGET_RADIUS) <= 18;
+                srgCtx.strokeStyle = inZone ? "#ffbe0b" : "#ff2a55";
+                srgCtx.lineWidth = inZone ? 5 : 3;
+                srgCtx.beginPath();
+                srgCtx.arc(cx, cy, ch10PulseRadius, 0, Math.PI * 2);
+                srgCtx.stroke();
+
+                srgCtx.fillStyle = inZone ? "#00f5d4" : "#ff2a55";
+                srgCtx.beginPath();
+                srgCtx.arc(cx, cy, 12, 0, Math.PI * 2);
+                srgCtx.fill();
+            }
+
+            requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+    }
+</script>
+
 </body>
 </html>
