@@ -3213,11 +3213,16 @@ function translateGlyphText(val) {
             hiddenSec8.appendChild(breachCallout);
         }
 
-        // Global listener to unlock Ch 9 & 10 when Creator Override (`arka99`) is typed anywhere
-        document.addEventListener('click', () => {
-            if (gameState.unlockedCh8 && gameState.unlockedCh2 && !gameState.unlockedCh9) {
+                // শুধুমাত্র সত্যিই 'arka99' টাইপ করলেই Ch 9, 10, 11 আনলক হবে
+        document.addEventListener('input', (e) => {
+            if (e.target && e.target.value && e.target.value.trim().toLowerCase() === 'arka99') {
                 unlockMultiverseUI(9, false);
-                unlockMultiverseUI(10, true);
+                unlockMultiverseUI(10, false);
+                if (document.getElementById('topBtn11')) {
+                    unlockMultiverseUI(11, true);
+                } else if (typeof saveState === 'function') {
+                    saveState();
+                }
             }
         });
 
