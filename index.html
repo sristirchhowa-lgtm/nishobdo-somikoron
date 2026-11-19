@@ -3886,9 +3886,9 @@ function translateGlyphText(val) {
             slider.addEventListener('input', evaluateCh11Stability);
         }
 
-        // Unlock Ch 11 when Ch 10 is solved or via Creator Override (arka99)
+                // শুধুমাত্র চ্যাপ্টার ১০ সলভ হলেই চ্যাপ্টার ১১ আনলক হবে
         document.addEventListener('click', () => {
-            if ((gameState.ch10Solved || (gameState.unlockedCh8 && gameState.unlockedCh2)) && !gameState.unlockedCh11) {
+            if (gameState.ch10Solved && !gameState.unlockedCh11) {
                 unlockMultiverseUI(11, true);
             }
         });
