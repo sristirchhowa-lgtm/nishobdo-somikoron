@@ -499,3 +499,128 @@
 
 
 // ==================== [SLOT 3] CHAPTER 15 (ভবিষ্যতে এই লাইনের নিচে পেস্ট করবে) ====================
+// ==================== UI UPGRADE: COLLAPSIBLE CHAPTER DRAWER ====================
+(function () {
+    const drawerCSS = `
+        .ch-drawer-toggle {
+            width: 100%;
+            background: rgba(6, 16, 30, 0.92);
+            border: 1px solid #00f5d4;
+            color: #00f5d4;
+            padding: 11px 14px;
+            border-radius: 8px;
+            font-family: 'Orbitron', monospace;
+            font-size: 11px;
+            letter-spacing: 0.8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin: 12px 0 8px;
+            box-shadow: 0 0 12px rgba(0, 245, 212, 0.14);
+            transition: background 0.2s;
+        }
+        .ch-drawer-toggle:active {
+            background: rgba(0, 245, 212, 0.15);
+        }
+        .ch-drawer-label {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 10px;
+        }
+        .chapter-switcher.ch-collapsed {
+            display: none !important;
+        }
+        .chapter-switcher.ch-expanded {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 8px !important;
+            max-height: 260px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(4, 9, 18, 0.96);
+            border: 1px solid #1e355e;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+        .chapter-switcher.ch-expanded .ch-btn {
+            width: 100% !important;
+            margin: 0 !important;
+            font-size: 10.5px !important;
+            padding: 9px 6px !important;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    `;
+
+    function getActiveChapterText() {
+        const cur = (typeof gameState !== 'undefined' && gameState.currentCh) ? gameState.currentCh : 1;
+        const title = (typeof chapterTitles !== 'undefined' && chapterTitles[cur]) ? chapterTitles[cur] : ('CH ' + cur);
+        return `☰ CHAPTERS // ${title}`;
+    }
+
+    function updateAllDrawerLabels() {
+        const text = getActiveChapterText();
+        document.querySelectorAll('.ch-drawer-label').forEach(el => {
+            el.textContent = text;
+        });
+    }
+
+    function setupChapterDrawers() {
+        const styleEl = document.createElement('style');
+        styleEl.textContent = drawerCSS;
+        document.head.appendChild(styleEl);
+
+        const switchers = document.querySelectorAll('.chapter-switcher');
+        switchers.forEach(sw => {
+            if (sw.dataset.drawerReady) return;
+            sw.dataset.drawerReady = 'true';
+
+            const toggleBtn = document.createElement('button');
+            toggleBtn.type = 'button';
+            toggleBtn.className = 'ch-drawer-toggle';
+            toggleBtn.innerHTML = `<span class="ch-drawer-label">${getActiveChapterText()}</span><span class="ch-drawer-arrow">▼</span>`;
+
+            sw.classList.add('ch-collapsed');
+            sw.insertAdjacentElement('beforebegin', toggleBtn);
+
+            toggleBtn.addEventListener('click', () => {
+                const isOpen = sw.classList.contains('ch-expanded');
+                if (isOpen) {
+                    sw.classList.remove('ch-expanded');
+                    sw.classList.add('ch-collapsed');
+                    toggleBtn.querySelector('.ch-drawer-arrow').textContent = '▼';
+                } else {
+                    sw.classList.remove('ch-collapsed');
+                    sw.classList.add('ch-expanded');
+                    toggleBtn.querySelector('.ch-drawer-arrow').textContent = '▲';
+                }
+            });
+
+            sw.addEventListener('click', (e) => {
+                const btn = e.target.closest('.ch-btn');
+                if (!btn || btn.classList.contains('locked-ch')) return;
+                setTimeout(() => {
+                    sw.classList.remove('ch-expanded');
+                    sw.classList.add('ch-collapsed');
+                    toggleBtn.querySelector('.ch-drawer-arrow').textContent = '▼';
+                    updateAllDrawerLabels();
+                }, 60);
+            });
+        });
+
+        // কোনো চ্যাপ্টার বাটন (যেমন লঞ্চ বাটন) দিয়ে চ্যাপ্টার বদলালেও লেবেল আপডেট হবে
+        document.addEventListener('click', () => {
+            setTimeout(updateAllDrawerLabels, 120);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => setTimeout(setupChapterDrawers, 150));
+    } else {
+        setTimeout(setupChapterDrawers, 150);
+    }
+})();
