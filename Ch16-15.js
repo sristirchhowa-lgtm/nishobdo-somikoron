@@ -641,3 +641,715 @@
         setTimeout(initCh15, 80);
     }
 })();
+
+
+
+// ==================== CHAPTER 16: দ্বৈত প্রতিধ্বনি (DUAL RESONANCE) ====================
+(function () {
+    if (typeof chapterTitles !== 'undefined') {
+        chapterTitles[16] = "CH 16: দ্বৈত প্রতিধ্বনি";
+    }
+
+    const ch16CSS = `
+        .ch16-gate-box {
+            background: #060d1c;
+            border: 1px solid #ffbe0b;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 14px 0;
+            text-align: center;
+        }
+        .ch16-gate-btns {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .ch16-gate-btn {
+            background: #0b1428;
+            border: 1px solid #3c5a99;
+            color: #e2efff;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .ch16-gate-btn:hover { border-color: #00f5d4; }
+        .ch16-panel {
+            background: #040914;
+            border: 1px solid #00f5d4;
+            border-radius: 10px;
+            padding: 14px;
+            margin: 14px 0;
+            box-shadow: inset 0 0 24px rgba(0, 245, 212, 0.1);
+        }
+        .ch16-panel.path-b {
+            border-color: #ff2a55;
+            box-shadow: inset 0 0 24px rgba(255, 42, 85, 0.12);
+        }
+        .ch16-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 10px;
+            color: #7ee8fa;
+            margin-bottom: 10px;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .ch16-target-bar {
+            background: #081326;
+            border: 1px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 9px 10px;
+            margin-bottom: 12px;
+        }
+        .ch16-target-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11.5px;
+            color: #d6ecff;
+            margin-bottom: 6px;
+        }
+        .ch16-prog-track {
+            width: 100%;
+            height: 7px;
+            background: #10203a;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .ch16-prog-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00f5d4, #00c896);
+            transition: width 0.25s ease;
+        }
+        .ch16-channels {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 310px;
+            margin: 0 auto 12px;
+        }
+        .ch16-col {
+            background: #081224;
+            border: 1.5px solid #ff2a55;
+            border-radius: 9px;
+            padding: 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .ch16-col.locked {
+            border-color: #00f5d4;
+            box-shadow: 0 0 12px rgba(0, 245, 212, 0.25);
+        }
+        .ch16-col.hint-glow {
+            outline: 2.5px solid #ffbe0b;
+            box-shadow: 0 0 16px rgba(255, 190, 11, 0.7);
+        }
+        .ch16-ch-tag {
+            font-family: 'Orbitron', monospace;
+            font-size: 9px;
+            color: #7ea0cc;
+        }
+        .ch16-node {
+            width: 44px;
+            height: 36px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .ch16-node.ori {
+            background: rgba(0, 245, 212, 0.14);
+            border: 1px solid #00f5d4;
+            color: #00f5d4;
+        }
+        .ch16-node.anti {
+            background: rgba(255, 42, 85, 0.14);
+            border: 1px solid #ff2a55;
+            color: #ff7b93;
+        }
+        .ch16-col.locked .ch16-node.anti {
+            background: rgba(0, 245, 212, 0.14);
+            border-color: #00f5d4;
+            color: #00f5d4;
+        }
+        .ch16-node-sub {
+            font-size: 7px;
+            opacity: 0.8;
+            letter-spacing: 0.4px;
+        }
+        .ch16-link-icon {
+            font-size: 11px;
+            color: #ff7b93;
+            font-weight: bold;
+        }
+        .ch16-col.locked .ch16-link-icon {
+            color: #00f5d4;
+        }
+        .ch16-pulse-btn {
+            width: 100%;
+            background: #102442;
+            border: 1px solid #3c659c;
+            color: #e2efff;
+            border-radius: 6px;
+            padding: 6px 2px;
+            font-family: 'Orbitron', monospace;
+            font-size: 9px;
+            cursor: pointer;
+        }
+        .ch16-pulse-btn:active { transform: scale(0.94); }
+        .ch16-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+        .ch16-btn {
+            background: #10203a;
+            border: 1px solid #3c659c;
+            color: #d8ecff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Orbitron', monospace;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        .ch16-btn.hint {
+            background: rgba(255, 190, 11, 0.14);
+            border-color: #ffbe0b;
+            color: #ffbe0b;
+        }
+        .ch16-btn.danger {
+            border-color: #ff2a55;
+            color: #ff7b93;
+        }
+        .ch16-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .ch16-status {
+            background: #070e1d;
+            border: 1px solid #243b63;
+            border-radius: 8px;
+            padding: 9px 10px;
+            font-size: 12px;
+            line-height: 1.55;
+            color: #cfe4ff;
+            text-align: center;
+        }
+        .ch16-bonus-log {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(255, 42, 85, 0.08);
+            border: 1px solid #ff2a55;
+            color: #ffd6de;
+            font-size: 13px;
+            line-height: 1.65;
+            display: none;
+        }
+    `;
+
+    const ch16HTML = `
+    <div id="chapter16" class="chapter-view">
+        <section class="section">
+            <div class="heading">
+                <span>ACT III: প্রতি-সমীকরণ // 01</span>
+                <span class="red" id="ch16PathTag">LOG: 016 // DUAL RESONANCE</span>
+            </div>
+
+            <div id="ch16EntryGate" class="ch16-gate-box" style="display:none;">
+                <div style="font-family:'Orbitron',monospace; font-size:11px; color:#ffbe0b; margin-bottom:6px;">
+                    [ TIMELINE BRANCH NOT DETECTED ]
+                </div>
+                <p style="font-size:13px; color:#cfe4ff; margin:0;">
+                    অধ্যায় ১৬-এর ফেজ লক সিস্টেমে ঢোকার আগে তোমার টাইমলাইন সিদ্ধান্ত লক করো:
+                </p>
+                <div class="ch16-gate-btns">
+                    <button type="button" class="ch16-gate-btn" id="ch16GateBtnA">
+                        <strong style="color:#00f5d4; font-family:'Orbitron',monospace; font-size:11px;">[ PATH A: EMPATHY OVERRIDE ]</strong><br>
+                        আনলিমিটেড পালস + থিয়ার <strong>THEA PULSE</strong> (নির্ভুল চ্যানেল হিন্ট)।
+                    </button>
+                    <button type="button" class="ch16-gate-btn" id="ch16GateBtnB">
+                        <strong style="color:#ff2a55; font-family:'Orbitron',monospace; font-size:11px;">[ PATH B: LOGIC BREACH ]</strong><br>
+                        কঠিন মুভ-লিমিট মোড (ধাপ ১: ৫ চাল, ধাপ ২: ৭ চাল) + গোপন অরিজিন লগ।
+                    </button>
+                </div>
+            </div>
+
+            <div id="ch16MainContent" style="display:none;">
+                <div class="story-text" id="ch16IntroStory"></div>
+                <div class="dialogue-box thea-speak" id="ch16DialogueBox"></div>
+
+                <div class="ch16-panel" id="ch16Panel">
+                    <div class="ch16-hud">
+                        <span id="ch16ModeBadge">PATH A // EMPATHY</span>
+                        <span id="ch16StageBadge">ধাপ ১/২: PHASE CALIBRATION</span>
+                        <span id="ch16MovesBadge">MOVES: 0</span>
+                    </div>
+
+                    <div class="ch16-target-bar">
+                        <div class="ch16-target-text">
+                            <strong>লক্ষ্য: ৪/৪ চ্যানেলে ORI ও ANTI সংখ্যা মেলাও</strong>
+                            <span id="ch16CountLabel">এখন: ০/৪</span>
+                        </div>
+                        <div class="ch16-prog-track">
+                            <div class="ch16-prog-fill" id="ch16ProgFill"></div>
+                        </div>
+                    </div>
+
+                    <div class="ch16-channels" id="ch16Channels"></div>
+
+                    <div class="ch16-actions">
+                        <button type="button" class="ch16-btn hint" id="ch16HintBtn" style="display:none;">⚡ THEA PULSE (HINT)</button>
+                        <button type="button" class="ch16-btn danger" id="ch16ResetBtn">↻ RESET PHASE</button>
+                    </div>
+
+                    <div class="ch16-status" id="ch16Status">
+                        নিয়ম: যেকোনো চ্যানেলে ট্যাপ করলে সেটির <strong>ORI (+1)</strong> বাড়বে এবং পাশের চ্যানেলের <strong>ANTI (-1)</strong> কমবে (১ থেকে ৫ চক্রাকারে)।
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="hiddenSec16" style="display:none; border-color:#00f5d4;">
+            <div class="heading">
+                <span>PHASE LOCKED // MIRROR BREACHED</span>
+                <span class="amber">DUAL RESONANCE</span>
+            </div>
+            <div class="story-text">
+                <p>চতুর্থ চ্যানেলের তরঙ্গ এক বিন্দুতে মিলে যেতেই দুই মহাবিশ্বের মাঝখানের কাঁচের মতো পর্দাটা গুঁড়ো গুঁড়ো হয়ে ভেঙে পড়ল। ধোঁয়ার ওপার থেকে বেরিয়ে এল হুবহু থিয়ার মতো দেখতে আরেকটি সত্তা—শুধু তার চোখের মণি নীলের বদলে রক্তিম লাল।</p>
+            </div>
+            <div class="dialogue-box" style="border-left-color:#ff2a55;">
+                <span class="speaker-tag" style="color:#ff2a55;">ANTI-THEA // MIRROR ENTITY</span>
+                "স্বাগতম, অরি। তোমার পাশের ওই থিয়া তোমাকে বাঁচানোর অভিনয় করছে—অথচ ও নিজেই ২২ নভেম্বরের বিস্ফোরণ ঘটিয়েছিল, যাতে তুমি কখনো আসল সমীকরণটা মুছে ফেলতে না পারো!"
+            </div>
+            <div class="ch16-bonus-log" id="ch16BreachBonus">
+                <strong style="color:#ff2a55; font-family:'Orbitron',monospace; font-size:11px;">[ CLASSIFIED ORIGIN LOG // PATH B BREACH BONUS ]</strong><br><br>
+                এনক্রিপ্টেড মেমোরি ডাম্প: <em>"প্রতি-থিয়া কোনো শত্রু নয়—সে ছিল মূল থিয়ার বিবেক, যাকে SUBJECT-00 (ARKA) বিপদের আশঙ্কায় সমান্তরাল জগতে আলাদা করে লুকিয়ে রেখেছিল।"</em>
+            </div>
+        </section>
+    </div>
+    `;
+
+    function buildCoupledStage(base, solutionTaps) {
+        const a = [...base];
+        const b = [...base];
+        solutionTaps.forEach(t => {
+            a[t] = a[t] === 1 ? 5 : a[t] - 1;
+            const nxt = (t + 1) % 4;
+            b[nxt] = (b[nxt] % 5) + 1;
+        });
+        return { startA: a, startB: b };
+    }
+
+    const s1 = buildCoupledStage([3, 3, 3, 3], [0, 2]);       // Optimal: CH-1, CH-3
+    const s2 = buildCoupledStage([4, 2, 5, 3], [0, 1, 1, 3]); // Optimal: CH-1, CH-2 (x2), CH-4
+
+    const STAGES = [
+        { title: 'ধাপ ১/২: PHASE CALIBRATION', startA: s1.startA, startB: s1.startB, limitB: 5 },
+        { title: 'ধাপ ২/২: MIRROR COLLAPSE', startA: s2.startA, startB: s2.startB, limitB: 7 }
+    ];
+
+    let stageIdx = 0;
+    let stateA = [...STAGES[0].startA];
+    let stateB = [...STAGES[0].startB];
+    let movesUsed = 0;
+    let hintCh = -1;
+    let stageLocked = false;
+
+    function playCh16Tone(freq, dur = 0.08, type = 'sine') {
+        try {
+            if (typeof audioEnabled !== 'undefined' && !audioEnabled) return;
+            if (typeof initAudio === 'function') initAudio();
+            if (typeof audioCtx === 'undefined' || !audioCtx) return;
+
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(0.05, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + dur);
+        } catch (e) {}
+    }
+
+    function getActivePath() {
+        if (typeof gameState === 'undefined' || !gameState.ch13Choice) return null;
+        return gameState.ch13Choice === 'protocol' ? 'protocol' : 'resonance';
+    }
+
+    function countMatched() {
+        let m = 0;
+        for (let i = 0; i < 4; i++) {
+            if (stateA[i] === stateB[i]) m++;
+        }
+        return m;
+    }
+
+    function findShortestSolution() {
+        let best = null;
+        let bestSum = 999;
+        for (let c0 = 0; c0 < 5; c0++) {
+            for (let c1 = 0; c1 < 5; c1++) {
+                for (let c2 = 0; c2 < 5; c2++) {
+                    for (let c3 = 0; c3 < 5; c3++) {
+                        const c = [c0, c1, c2, c3];
+                        const sum = c0 + c1 + c2 + c3;
+                        if (sum >= bestSum) continue;
+                        let ok = true;
+                        for (let i = 0; i < 4; i++) {
+                            const prev = (i + 3) % 4;
+                            const aVal = ((stateA[i] - 1 + c[i]) % 5) + 1;
+                            const bVal = ((stateB[i] - 1 - c[prev] + 10) % 5) + 1;
+                            if (aVal !== bVal) { ok = false; break; }
+                        }
+                        if (ok) {
+                            best = c;
+                            bestSum = sum;
+                        }
+                    }
+                }
+            }
+        }
+        return best;
+    }
+
+    function loadStage(idx) {
+        stageIdx = idx;
+        stateA = [...STAGES[idx].startA];
+        stateB = [...STAGES[idx].startB];
+        movesUsed = 0;
+        hintCh = -1;
+        stageLocked = false;
+        renderCh16Board();
+    }
+
+    function renderCh16Board() {
+        const container = document.getElementById('ch16Channels');
+        const modeEl = document.getElementById('ch16ModeBadge');
+        const stageEl = document.getElementById('ch16StageBadge');
+        const movesEl = document.getElementById('ch16MovesBadge');
+        const countEl = document.getElementById('ch16CountLabel');
+        const fillEl = document.getElementById('ch16ProgFill');
+        const hintBtn = document.getElementById('ch16HintBtn');
+
+        if (!container) return;
+
+        const path = getActivePath();
+        const isHard = path === 'protocol';
+        const matched = countMatched();
+        const solved = typeof gameState !== 'undefined' && gameState.ch16Solved;
+
+        if (modeEl) modeEl.textContent = isHard ? 'PATH B // HARDCORE' : 'PATH A // EMPATHY';
+        if (stageEl) stageEl.textContent = solved ? 'PHASE LOCKED' : STAGES[stageIdx].title;
+        if (movesEl) {
+            if (solved) {
+                movesEl.textContent = 'STATUS: SYNCED';
+            } else if (isHard) {
+                const left = Math.max(0, STAGES[stageIdx].limitB - movesUsed);
+                movesEl.textContent = `MOVES LEFT: ${left}`;
+            } else {
+                movesEl.textContent = `MOVES: ${movesUsed}`;
+            }
+        }
+        if (countEl) countEl.textContent = `এখন: ${matched}/৪`;
+        if (fillEl) fillEl.style.width = `${Math.round((matched / 4) * 100)}%`;
+
+        if (hintBtn) {
+            hintBtn.style.display = (!isHard && !solved) ? 'inline-block' : 'none';
+            hintBtn.disabled = stageLocked || solved;
+        }
+
+        container.innerHTML = '';
+        for (let i = 0; i < 4; i++) {
+            const isLocked = stateA[i] === stateB[i];
+            const col = document.createElement('div');
+            col.className = 'ch16-col' + (isLocked ? ' locked' : '') + (hintCh === i ? ' hint-glow' : '');
+            col.innerHTML = `
+                <span class="ch16-ch-tag">CH-${i + 1}</span>
+                <div class="ch16-node ori">
+                    <span>${stateA[i]}</span>
+                    <span class="ch16-node-sub">ORI</span>
+                </div>
+                <span class="ch16-link-icon">${isLocked ? '═' : '≠'}</span>
+                <div class="ch16-node anti">
+                    <span>${stateB[i]}</span>
+                    <span class="ch16-node-sub">ANTI</span>
+                </div>
+                <button type="button" class="ch16-pulse-btn" ${stageLocked || solved ? 'disabled' : ''}>PULSE</button>
+            `;
+            col.querySelector('.ch16-pulse-btn').addEventListener('click', () => handleChannelTap(i));
+            container.appendChild(col);
+        }
+    }
+
+    function applyCh16SolvedState() {
+        stateA = [4, 2, 5, 3];
+        stateB = [4, 2, 5, 3];
+        stageIdx = 1;
+        hintCh = -1;
+        stageLocked = true;
+        renderCh16Board();
+
+        const statusEl = document.getElementById('ch16Status');
+        const hidden = document.getElementById('hiddenSec16');
+        const bonus = document.getElementById('ch16BreachBonus');
+
+        if (statusEl) {
+            statusEl.style.borderColor = '#00f5d4';
+            statusEl.innerHTML = `<strong style="color:#00f5d4;">✓ ৪/৪ চ্যানেলেই দ্বৈত প্রতিধ্বনি স্থিতিশীল!</strong>`;
+        }
+        if (hidden) hidden.style.display = 'block';
+        if (bonus) {
+            bonus.style.display = (getActivePath() === 'protocol') ? 'block' : 'none';
+        }
+    }
+
+    function handleChannelTap(i) {
+        if (stageLocked || (typeof gameState !== 'undefined' && gameState.ch16Solved)) return;
+
+        const isHard = getActivePath() === 'protocol';
+        const nxt = (i + 1) % 4;
+
+        stateA[i] = (stateA[i] % 5) + 1;
+        stateB[nxt] = stateB[nxt] === 1 ? 5 : stateB[nxt] - 1;
+        movesUsed++;
+        hintCh = -1;
+
+        const matched = countMatched();
+        playCh16Tone(400 + matched * 65, 0.07, 'triangle');
+        renderCh16Board();
+
+        const statusEl = document.getElementById('ch16Status');
+
+        if (matched === 4) {
+            stageLocked = true;
+            if (stageIdx === 0) {
+                playCh16Tone(650, 0.14, 'sine');
+                if (statusEl) {
+                    statusEl.style.borderColor = '#00f5d4';
+                    statusEl.innerHTML = `<strong style="color:#00f5d4;">✓ ধাপ ১ সম্পন্ন! ধাপ ২ (Mirror Collapse) লোড হচ্ছে...</strong>`;
+                }
+                if (typeof showToast === 'function') showToast("⚡ ধাপ ১ সম্পন্ন! এবার ধাপ ২!");
+                setTimeout(() => {
+                    if (statusEl) {
+                        statusEl.style.borderColor = '#243b63';
+                        statusEl.textContent = 'ধাপ ২ চালু হয়েছে: আবার ৪/৪ চ্যানেলে ORI ও ANTI সংখ্যা সমান করো।';
+                    }
+                    loadStage(1);
+                }, 900);
+            } else {
+                if (typeof gameState !== 'undefined') {
+                    gameState.ch16Solved = true;
+                    if (typeof saveState === 'function') saveState();
+                }
+                applyCh16SolvedState();
+                playCh16Tone(660, 0.14, 'sine');
+                setTimeout(() => playCh16Tone(880, 0.26, 'sine'), 120);
+                if (typeof triggerHapticPattern === 'function') triggerHapticPattern([100, 60, 220]);
+                if (typeof showToast === 'function') showToast("⚡ দ্বৈত প্রতিধ্বনি স্থিতিশীল! পর্দা ভেঙে গেছে!");
+                const hidden = document.getElementById('hiddenSec16');
+                if (hidden) hidden.scrollIntoView({ behavior: 'smooth' });
+            }
+            return;
+        }
+
+        if (isHard && movesUsed >= STAGES[stageIdx].limitB) {
+            stageLocked = true;
+            playCh16Tone(200, 0.16, 'sawtooth');
+            if (typeof triggerHapticPattern === 'function') triggerHapticPattern([70, 40, 70]);
+            if (statusEl) {
+                statusEl.style.borderColor = '#ff2a55';
+                statusEl.innerHTML = `<strong style="color:#ff2a55;">✖ মুভ লিমিট শেষ!</strong> নিচের <strong>RESET PHASE</strong> বাটনে ট্যাপ করে আবার চেষ্টা করো।`;
+            }
+        }
+    }
+
+    function syncCh16PathUI() {
+        const path = getActivePath();
+        const gate = document.getElementById('ch16EntryGate');
+        const main = document.getElementById('ch16MainContent');
+        const intro = document.getElementById('ch16IntroStory');
+        const dial = document.getElementById('ch16DialogueBox');
+        const panel = document.getElementById('ch16Panel');
+        const tag = document.getElementById('ch16PathTag');
+
+        if (!gate || !main) return;
+
+        if (!path) {
+            gate.style.display = 'block';
+            main.style.display = 'none';
+            return;
+        }
+
+        gate.style.display = 'none';
+        main.style.display = 'block';
+
+        if (path === 'protocol') {
+            if (panel) panel.classList.add('path-b');
+            if (tag) tag.textContent = 'LOG: 016 // PATH B: MIRROR BREACH';
+            if (intro) intro.innerHTML = `<p>প্রতি-মহাবিশ্বের কক্ষপথে দ্বিতীয় থিয়ার সিগন্যাল ধরা পড়তেই দুটি বাস্তবতার ফ্রিকোয়েন্সি একে অপরের সাথে সংঘর্ষে জড়িয়ে পড়েছে। প্যারাডক্স-ভাইরাসের চাপে তোমার হাতে <strong>সীমিত পালস</strong>।</p>`;
+            if (dial) dial.innerHTML = `<span class="speaker-tag" style="color:#ff2a55;">THEA // PHASE INTERFERENCE</span>"সাবধান অরি! একটা চ্যানেলে পালস দিলে তার পরের চ্যানেলের প্রতি-তরঙ্গ উল্টে যাচ্ছে। সীমিত চালের মধ্যে ৪টি চ্যানেলের সংখ্যা সমান করো!"`;
+        } else {
+            if (panel) panel.classList.remove('path-b');
+            if (tag) tag.textContent = 'LOG: 016 // PATH A: DUAL RESONANCE';
+            if (intro) intro.innerHTML = `<p>শূন্য সমতার দরজা পেরিয়ে অরি ও থিয়া এখন দুই সমান্তরাল মহাবিশ্বের ঠিক সীমানায়। ওপার থেকে ভেসে আসছে আরেকটি থিয়ার প্রতিধ্বনি—তরঙ্গ মেলালেই খুলে যাবে বিভাজনের পর্দা।</p>`;
+            if (dial) dial.innerHTML = `<span class="speaker-tag" style="color:var(--amber);">THEA // RESONANCE LINK</span>"প্রতিটি চ্যানেলে ORI আর ANTI-র মান সমান করতে হবে। আটকে গেলে আমার <strong>THEA PULSE</strong> ব্যবহার কোরো।"`;
+        }
+
+        if (typeof gameState !== 'undefined' && gameState.ch16Solved) {
+            applyCh16SolvedState();
+        } else {
+            loadStage(0);
+        }
+    }
+
+    function unlockCh16Buttons() {
+        ['topBtn16', 'botBtn16'].forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn) {
+                btn.classList.remove('locked-ch');
+                btn.textContent = chapterTitles[16];
+            }
+        });
+    }
+
+    function initCh16() {
+        const styleEl = document.createElement('style');
+        styleEl.textContent = ch16CSS;
+        document.head.appendChild(styleEl);
+
+        const anchorEl = document.getElementById('chapter15') || document.getElementById('chapter14') || document.getElementById('chapter13');
+        if (anchorEl) anchorEl.insertAdjacentHTML('afterend', ch16HTML);
+
+        const openCh16 = () => {
+            if (typeof gameState !== 'undefined') {
+                gameState.unlockedCh16 = true;
+                if (typeof saveState === 'function') saveState();
+            }
+            if (typeof unlockMultiverseUI === 'function') {
+                try { unlockMultiverseUI(16, true); } catch (e) {}
+            }
+            unlockCh16Buttons();
+            syncCh16PathUI();
+            if (typeof switchMultiverseChapter === 'function') switchMultiverseChapter(16);
+        };
+
+        const switchers = document.querySelectorAll('.chapter-switcher');
+        if (switchers.length >= 2) {
+            const tBtn = document.createElement('button');
+            tBtn.className = 'ch-btn locked-ch';
+            tBtn.id = 'topBtn16';
+            tBtn.textContent = '🔒 ' + chapterTitles[16];
+            tBtn.onclick = openCh16;
+            switchers[0].appendChild(tBtn);
+
+            const bBtn = document.createElement('button');
+            bBtn.className = 'ch-btn locked-ch';
+            bBtn.id = 'botBtn16';
+            bBtn.textContent = '🔒 ' + chapterTitles[16];
+            bBtn.onclick = openCh16;
+            switchers[1].appendChild(bBtn);
+        }
+
+        const hiddenSec15 = document.getElementById('hiddenSec15');
+        if (hiddenSec15 && !document.getElementById('launchCh16Btn')) {
+            const launchBtn = document.createElement('button');
+            launchBtn.id = 'launchCh16Btn';
+            launchBtn.type = 'button';
+            launchBtn.className = 'reflex-btn';
+            launchBtn.style.marginTop = '14px';
+            launchBtn.textContent = '⚡ ENTER ACT III // CHAPTER 16: দ্বৈত প্রতিধ্বনি ↗';
+            launchBtn.addEventListener('click', openCh16);
+            hiddenSec15.appendChild(launchBtn);
+        }
+
+        const gateA = document.getElementById('ch16GateBtnA');
+        const gateB = document.getElementById('ch16GateBtnB');
+        if (gateA) gateA.addEventListener('click', () => {
+            if (typeof gameState !== 'undefined') {
+                gameState.ch13Choice = 'resonance';
+                if (typeof saveState === 'function') saveState();
+            }
+            syncCh16PathUI();
+        });
+        if (gateB) gateB.addEventListener('click', () => {
+            if (typeof gameState !== 'undefined') {
+                gameState.ch13Choice = 'protocol';
+                if (typeof saveState === 'function') saveState();
+            }
+            syncCh16PathUI();
+        });
+
+        const hintBtn = document.getElementById('ch16HintBtn');
+        const resetBtn = document.getElementById('ch16ResetBtn');
+        const statusEl = document.getElementById('ch16Status');
+
+        if (hintBtn) hintBtn.addEventListener('click', () => {
+            if (stageLocked || (typeof gameState !== 'undefined' && gameState.ch16Solved)) return;
+            const sol = findShortestSolution();
+            if (sol) {
+                const total = sol.reduce((a, b) => a + b, 0);
+                const idx = sol.findIndex(v => v > 0);
+                if (idx !== -1) {
+                    hintCh = idx;
+                    playCh16Tone(740, 0.12, 'sine');
+                    if (statusEl) {
+                        statusEl.style.borderColor = '#ffbe0b';
+                        statusEl.innerHTML = `<strong style="color:#ffbe0b;">⚡ THEA PULSE:</strong> এখন <strong>CH-${idx + 1}</strong>-এ ট্যাপ করো (সমাধান হতে বাকি মাত্র ${total} চাল)।`;
+                    }
+                    renderCh16Board();
+                }
+            }
+        });
+
+        if (resetBtn) resetBtn.addEventListener('click', () => {
+            if (typeof gameState !== 'undefined' && gameState.ch16Solved) return;
+            playCh16Tone(320, 0.08, 'sine');
+            if (statusEl) {
+                statusEl.style.borderColor = '#243b63';
+                statusEl.textContent = 'বোর্ড রিসেট হয়েছে। ৪/৪ চ্যানেলে ORI ও ANTI সংখ্যা মেলাও।';
+            }
+            loadStage(stageIdx);
+        });
+
+        document.addEventListener('input', (e) => {
+            if (e.target && e.target.value && e.target.value.trim().toLowerCase() === 'arka99') {
+                if (typeof gameState !== 'undefined') {
+                    gameState.unlockedCh16 = true;
+                    if (typeof saveState === 'function') saveState();
+                }
+                unlockCh16Buttons();
+            }
+        });
+
+        if (typeof gameState !== 'undefined' && (gameState.unlockedCh16 || gameState.ch15Solved)) {
+            unlockCh16Buttons();
+        }
+
+        syncCh16PathUI();
+    }
+
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', () => setTimeout(initCh16, 140));
+    } else {
+        setTimeout(initCh16, 140);
+    }
+})();
+
+
