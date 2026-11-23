@@ -1190,78 +1190,9 @@
 
 // ==================== [SLOT 3] CHAPTER 15 (ভবিষ্যতে এই লাইনের নিচে পেস্ট করবে) ====================
 // ==================== [SLOT 3] CHAPTER 15: শূন্য সমতা (ZERO EQUILIBRIUM) ====================
-(function () {
-    if (typeof chapterTitles !== 'undefined') {
-        chapterTitles[15] = "CH 15: শূন্য সমতা";
-    }
 
-    const ch15CSS = `
-        .ch15-gate-box {
-            background: #060d1c;
-            border: 1px solid #ffbe0b;
-            border-radius: 10px;
-            padding: 16px;
-            margin: 14px 0;
-            text-align: center;
-        }
-        .ch15-gate-btns {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 12px;
-        }
-        .ch15-gate-btn {
-            background: #0b1428;
-            border: 1px solid #3c5a99;
-            color: #e2efff;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: left;
-            cursor: pointer;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        .ch15-gate-btn:hover { border-color: #00f5d4; }
-        .ch15-panel {
-            background: #040914;
-            border: 1px solid #00f5d4;
-            border-radius: 10px;
-            padding: 14px;
-            margin: 14px 0;
-            box-shadow: inset 0 0 24px rgba(0, 245, 212, 0.1);
-        }
-        .ch15-panel.path-b {
-            border-color: #ff2a55;
-            box-shadow: inset 0 0 24px rgba(255, 42, 85, 0.12);
-        }
-        .ch15-hud {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Orbitron', monospace;
-            font-size: 10px;
-            color: #7ee8fa;
-            margin-bottom: 10px;
-            letter-spacing: 0.6px;
-        }
-        .ch15-target-bar {
-            background: rgba(6, 20, 38, 0.95);
-            border: 1px solid #1f4268;
-            border-radius: 8px;
-            padding: 9px 11px;
-            margin-bottom: 12px;
-            text-align: left;
-        }
-        .ch15-target-text {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            color: #d9f7ff;
-            margin-bottom: 6px;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        
+        
 
 
 // ==================== UI UPGRADE: COLLAPSIBLE CHAPTER DRAWER ====================
