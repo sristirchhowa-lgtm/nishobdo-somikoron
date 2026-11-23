@@ -1189,6 +1189,224 @@
 })();
 
 // ==================== [SLOT 3] CHAPTER 15 (ভবিষ্যতে এই লাইনের নিচে পেস্ট করবে) ====================
+// ==================== [SLOT 3] CHAPTER 15: শূন্য সমতা (ZERO EQUILIBRIUM) ====================
+(function () {
+    if (typeof chapterTitles !== 'undefined') {
+        chapterTitles[15] = "CH 15: শূন্য সমতা";
+    }
+
+    const ch15CSS = `
+        .ch15-gate-box {
+            background: #060d1c;
+            border: 1px solid #ffbe0b;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 14px 0;
+            text-align: center;
+        }
+        .ch15-gate-btns {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .ch15-gate-btn {
+            background: #0b1428;
+            border: 1px solid #3c5a99;
+            color: #e2efff;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .ch15-gate-btn:hover { border-color: #00f5d4; }
+        .ch15-panel {
+            background: #040914;
+            border: 1px solid #00f5d4;
+            border-radius: 10px;
+            padding: 14px;
+            margin: 14px 0;
+            box-shadow: inset 0 0 24px rgba(0, 245, 212, 0.1);
+        }
+        .ch15-panel.path-b {
+            border-color: #ff2a55;
+            box-shadow: inset 0 0 24px rgba(255, 42, 85, 0.12);
+        }
+        .ch15-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 10px;
+            color: #7ee8fa;
+            margin-bottom: 10px;
+            letter-spacing: 0.6px;
+        }
+        .ch15-target-bar {
+            background: rgba(6, 20, 38, 0.95);
+            border: 1px solid #1f4268;
+            border-radius: 8px;
+            padding: 9px 11px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .ch15-target-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #d9f7ff;
+            margin-bottom: 6px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .ch15-progress-track {
+            width: 100%;
+            height: 6px;
+            background: #102036;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .ch15-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00b4d8, #00f5d4);
+            transition: width 0.22s ease;
+        }
+        .ch15-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+            max-width: 265px;
+            margin: 0 auto 12px;
+        }
+        .ch15-cell {
+            aspect-ratio: 1 / 1;
+            border-radius: 9px;
+            border: 1.5px solid #ff2a55;
+            background: rgba(255, 42, 85, 0.14);
+            color: #ff8fa3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            transition: transform 0.12s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+        .ch15-cell:active { transform: scale(0.94); }
+        .ch15-cell.stable {
+            border-color: #00f5d4;
+            background: rgba(0, 245, 212, 0.18);
+            color: #00f5d4;
+            box-shadow: 0 0 14px rgba(0, 245, 212, 0.32);
+        }
+        .ch15-cell.hint-glow {
+            border-color: #ffbe0b !important;
+            box-shadow: 0 0 18px rgba(255, 190, 11, 0.75) !important;
+            animation: ch15Pulse 0.9s infinite alternate;
+        }
+        @keyframes ch15Pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.04); }
+        }
+        .ch15-cell-num {
+            position: absolute;
+            top: 4px;
+            left: 6px;
+            font-family: 'Orbitron', monospace;
+            font-size: 9px;
+            opacity: 0.75;
+        }
+        .ch15-cell-icon {
+            font-size: 20px;
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+        .ch15-cell-lbl {
+            font-size: 9.5px;
+            letter-spacing: 0.3px;
+        }
+        .ch15-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .ch15-btn {
+            background: #10203a;
+            border: 1px solid #3c659c;
+            color: #d8ecff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Orbitron', monospace;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        .ch15-btn.pulse-btn {
+            background: rgba(255, 190, 11, 0.14);
+            border-color: #ffbe0b;
+            color: #ffbe0b;
+        }
+        .ch15-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .ch15-status-msg {
+            margin-top: 10px;
+            padding: 9px 11px;
+            border-radius: 7px;
+            background: #070f1f;
+            border: 1px solid #1e355e;
+            font-size: 12.5px;
+            color: #cfe4ff;
+            line-height: 1.55;
+            text-align: center;
+        }
+        .ch15-bonus-log {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(255, 42, 85, 0.08);
+            border: 1px solid #ff2a55;
+            color: #ffd6de;
+            font-size: 13px;
+            line-height: 1.65;
+            display: none;
+        }
+    `;
+
+    const ch15HTML = `
+    <div id="chapter15" class="chapter-view">
+        <section class="section">
+            <div class="heading">
+                <span>ACT II FINALE // 05</span>
+                <span class="red" id="ch15PathTag">LOG: 015 // ZERO EQUILIBRIUM</span>
+            </div>
+
+            <div id="ch15EntryGate" class="ch15-gate-box" style="display:none;">
+                <div style="font-family:'Orbitron',monospace; font-size:11px; color:#ffbe0b; margin-bottom:6px;">
+                    [ TIMELINE BRANCH NOT DETECTED ]
+                </div>
+                <p style="font-size:13px; color:#cfe4ff; margin:0;">
+                    Act II-এর ফাইনাল কোর খোলার আগে তোমার পথ লক করো:
+                </p>
+                <div class="ch15-gate-btns">
+                    <button type="button" class="ch15-gate-btn" id="ch15GateBtnA">
+                        <strong style="color:#00f5d4; font-family:'Orbitron',monospace; font-size:11px;">[ PATH A: EMPATHY OVERRIDE ]</strong><br>
+                        আনলিমিটেড মুভ + THEA PULSE হিন্ট সহায়তা।
+                    </button>
+                    <button type="button" class="ch15-gate-btn" id="ch15GateBtnB">
+                        <strong style="color:#ff2a55; font-family:'Orbitron',monospace; font-size:11px;">[ PATH B: LOGIC BREACH ]</strong><br>
+                        সীমিত মুভ চ্যালেঞ্জ (ধাপ ১: ৪ মুভ, ধাপ ২: ৬ মুভ) + Act III গোপন ফাইল।
+                    </button>
+                </div>
+            </div>
+
+            <div id="ch15MainContent" style="display:none;">
+
 // ==================== UI UPGRADE: COLLAPSIBLE CHAPTER DRAWER ====================
 (function () {
     const drawerCSS = `
