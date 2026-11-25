@@ -982,9 +982,9 @@
 
         <!-- ==================== PORTAL INTRO SCREEN (SECURE PRODUCTION START) ==================== -->
         <section id="portalIntro" class="intro">
-            <div style="font-size:10px;letter-spacing:4px;color:#65eaff;font-family:'Orbitron',sans-serif">AN UNKNOWN WORLD IS CALLING // v2.0 SECURE</div>
+            <div style="font-size:10px;letter-spacing:4px;color:#65eaff;font-family:'Orbitron',sans-serif">◈ NULLGLYPH // SEASON 1 </div>
             <h1>NISHOBDO <span>SOMIKORON</span></h1>
-            <p style="color:#a3c2ce;font-size:14.5px;max-width:440px">বাস্তবতা, অবচেতন ট্রমা এবং কোয়ান্টাম ফিজিক্সের সীমানা পেরিয়ে এক অজানা ফ্রিকোয়েন্সির পূর্ণাঙ্গ যাত্রা (অধ্যায় ১–৮)।</p>
+            <p style="color:#a3c2ce;font-size:14.5px;max-width:440px">বাস্তবতা, অবচেতন ট্রমা এবং কোয়ান্টাম ফিজিক্সের সীমানা পেরিয়ে এক অজানা ফ্রিকোয়েন্সির পূর্ণাঙ্গ যাত্রা । ভাঙতে হবে তালা । পেরোতে হবে ১ থেকে ১৬ টা চ্যাপ্টার। তুমি কি পারবে সেটা কি অতিক্রম করতে? ।</p>
             <div class="portal">
                 <div class="portal-core">⟡</div>
             </div>
@@ -3925,6 +3925,47 @@ function translateGlyphText(val) {
 <script src="ch12.js?v=1"></script>
 <script src="ch13_15.js"></script>
 <script src="Ch16-15.js?v=1"></script>
-<script src="s1_finale.js?v=2"></script> 
+<script src="s1_finale.js?v=2"><if (pullTxt) pullTxt.textContent = \"◄◄ OBJECT ZERO PULLING LEFT\";/script> 
+<script>
+(function () {
+    // নিজের জন্য ডেভেলপার বাটন দেখতে চাইলে লিঙ্কের শেষে ?dev=1 লিখবে
+    if (window.location.search.indexOf('dev=1') !== -1) return;
+
+    function cleanPublicLanding() {
+        document.querySelectorAll('button, a').forEach(function (el) {
+            if (el.closest('.chapter-view')) return;
+            var txt = (el.textContent || '').replace(/\s+/g, ' ').trim().toUpperCase();
+
+            // পাবলিক ভিউ থেকে ডেভেলপার বাটন হাইড করা
+            if (
+                txt.indexOf('EXPORT') !== -1 ||
+                txt.indexOf('DEPLOY HUB') !== -1 ||
+                txt.indexOf('DOWNLOAD') !== -1
+            ) {
+                el.style.display = 'none';
+            }
+
+            // নতুন প্লেয়ার (CH 01) হলে ডুপ্লিকেট CONTINUE SAVED বাটন হাইড করা
+            if (txt.indexOf('CONTINUE SAVED') !== -1) {
+                var isCh1 = txt.indexOf('CH 01') !== -1 || txt.indexOf('CH 1)') !== -1;
+                el.style.display = isCh1 ? 'none' : '';
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            cleanPublicLanding();
+            setTimeout(cleanPublicLanding, 200);
+            setTimeout(cleanPublicLanding, 600);
+        });
+    } else {
+        cleanPublicLanding();
+        setTimeout(cleanPublicLanding, 200);
+        setTimeout(cleanPublicLanding, 600);
+    }
+})();
+<script>
+
 </body>
 </html>
